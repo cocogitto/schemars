@@ -1,5 +1,6 @@
 # Schemars
 
+**⚠️This is a temporary fork for [cocogitto](https://github.com/cocogitto/cocogitto) needs only, please use [schemars](https://crates.io/crates/schemars) instead.**
 > [!NOTE]
 > This branch is for the current v1 alpha version of Schemars which is still under development.
 > For the current stable release of Schemars (v0.8.x), see the [v0 branch](https://github.com/GREsau/cog_schemars/tree/v0).
