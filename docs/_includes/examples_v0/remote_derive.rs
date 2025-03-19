@@ -11,7 +11,7 @@ mod other_crate {
 ////////////////////////////////////////////////////////////////////////////////
 
 use other_crate::Duration;
-use schemars::{schema_for, JsonSchema};
+use cog_schemars::{schema_for, JsonSchema};
 
 // This is just a copy of the remote data structure that Schemars can use to
 // create a suitable JsonSchema impl.

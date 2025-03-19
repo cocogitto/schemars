@@ -31,19 +31,19 @@ jobs:
           cargo add --dev garde --git https://github.com/jprochazk/garde.git --rev be00ddddf8de14530ee890ccfdbaf0b13fb32852
           cargo add --dev validator@0.18.1
           cargo update url --precise 2.5.2
-        working-directory: ./schemars
+        working-directory: ./cog_schemars
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: ${{ matrix.rust }}
       - name: Check with no feature flags
         run: cargo check --verbose --no-default-features
         continue-on-error: ${{ matrix.allow_failure }}
-        working-directory: ./schemars
+        working-directory: ./cog_schemars
       - name: Run tests
         run: cargo test --verbose --all-features --no-fail-fast
         continue-on-error: ${{ matrix.allow_failure }}
-        working-directory: ./schemars
+        working-directory: ./cog_schemars
       - name: Run derive tests
         run: cargo test --verbose --all-features --no-fail-fast
         continue-on-error: ${{ matrix.allow_failure }}
-        working-directory: ./schemars_derive
+        working-directory: ./cog_schemars_derive

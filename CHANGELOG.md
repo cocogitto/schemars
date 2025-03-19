@@ -4,24 +4,24 @@
 
 ### Fixed:
 
-- Fix compatibility with rust 2024 edition (https://github.com/GREsau/schemars/pull/378)
+- Fix compatibility with rust 2024 edition (https://github.com/GREsau/cog_schemars/pull/378)
 
 ## [1.0.0-alpha.17] - 2024-12-02
 
 ### Changed
 
-- For newtype variants of internally-tagged enums, prefer referencing the inner type's schema via `$ref` instead of always inlining the schema (https://github.com/GREsau/schemars/pull/355) _(this change was included in the release notes for 1.0.0-alpha.16, but was accidentally excluded from the published crate)_
+- For newtype variants of internally-tagged enums, prefer referencing the inner type's schema via `$ref` instead of always inlining the schema (https://github.com/GREsau/cog_schemars/pull/355) _(this change was included in the release notes for 1.0.0-alpha.16, but was accidentally excluded from the published crate)_
 
 ## [1.0.0-alpha.16] - 2024-11-25
 
 ### Removed (_⚠️ breaking changes ⚠️_)
 
-- the `enumset1`/`enumset` optional dependency has been removed, as its `JsonSchema` impl did not actually match the default serialization format of `EnumSet` (https://github.com/GREsau/schemars/pull/339)
+- the `enumset1`/`enumset` optional dependency has been removed, as its `JsonSchema` impl did not actually match the default serialization format of `EnumSet` (https://github.com/GREsau/cog_schemars/pull/339)
 
 ### Changed (_⚠️ breaking changes ⚠️_)
 
 - MSRV is now 1.70
-- [The `example` attribute](https://graham.cool/schemars/deriving/attributes/#example) value is now an arbitrary expression, rather than a string literal identifying a function to call. To avoid silent behaviour changes, the expression must not be a string literal where the value can be parsed as a function path - e.g. `#[schemars(example = "foo")]` is now a compile error, but `#[schemars(example = foo())]` is allowed (as is `#[schemars(example = &"foo")]` if you want the the literal string value `"foo"` to be the example).
+- [The `example` attribute](https://graham.cool/cog_schemars/deriving/attributes/#example) value is now an arbitrary expression, rather than a string literal identifying a function to call. To avoid silent behaviour changes, the expression must not be a string literal where the value can be parsed as a function path - e.g. `#[cog_schemars(example = "foo")]` is now a compile error, but `#[cog_schemars(example = foo())]` is allowed (as is `#[cog_schemars(example = &"foo")]` if you want the the literal string value `"foo"` to be the example).
 
 ### Fixed
 
@@ -32,7 +32,7 @@
 
 ### Added
 
-- `SchemaSettings` now has a `contract` field which determines whether the generated schemas describe how types are serialized or *de*serialized. By default, this is set to `Deserialize`, as this more closely matches the behaviour of previous versions - you can change this to `Serialize` to instead generate schemas describing the type's serialization behaviour (https://github.com/GREsau/schemars/issues/48 / https://github.com/GREsau/schemars/pull/335)
+- `SchemaSettings` now has a `contract` field which determines whether the generated schemas describe how types are serialized or *de*serialized. By default, this is set to `Deserialize`, as this more closely matches the behaviour of previous versions - you can change this to `Serialize` to instead generate schemas describing the type's serialization behaviour (https://github.com/GREsau/cog_schemars/issues/48 / https://github.com/GREsau/cog_schemars/pull/335)
 
 ### Changed
 
@@ -42,7 +42,7 @@
 
 ### Added
 
-- Read `#[garde(...)]` attributes as an alternative to `#[validate(...)]` (https://github.com/GREsau/schemars/issues/233 / https://github.com/GREsau/schemars/pull/331). See [the documentation](https://graham.cool/schemars/deriving/attributes/#supported-validatorgarde-attributes) for a full list of supported attributes.
+- Read `#[garde(...)]` attributes as an alternative to `#[validate(...)]` (https://github.com/GREsau/cog_schemars/issues/233 / https://github.com/GREsau/cog_schemars/pull/331). See [the documentation](https://graham.cool/cog_schemars/deriving/attributes/#supported-validatorgarde-attributes) for a full list of supported attributes.
 
 ## [1.0.0-alpha.13] - 2024-08-27
 
@@ -54,8 +54,8 @@
 
 ### Fixed
 
-- Allow `regex(path = ...)` value to be a non-string expression (https://github.com/GREsau/schemars/issues/302 / https://github.com/GREsau/schemars/pull/328)
-- Respect `#[serde(rename_all_fields = ...)]` attribute (https://github.com/GREsau/schemars/issues/273 / https://github.com/GREsau/schemars/pull/304)
+- Allow `regex(path = ...)` value to be a non-string expression (https://github.com/GREsau/cog_schemars/issues/302 / https://github.com/GREsau/cog_schemars/pull/328)
+- Respect `#[serde(rename_all_fields = ...)]` attribute (https://github.com/GREsau/cog_schemars/issues/273 / https://github.com/GREsau/cog_schemars/pull/304)
 
 ### Changed (_⚠️ possibly-breaking changes ⚠️_)
 
@@ -69,33 +69,33 @@
 
 ### Changed
 
-- Values in `#[doc = ...]` and `#[schemars(description = ..., title = ...)]` attributes may now be any arbitrary expression rather than just string literals. (https://github.com/GREsau/schemars/issues/204 / https://github.com/GREsau/schemars/pull/327)
+- Values in `#[doc = ...]` and `#[cog_schemars(description = ..., title = ...)]` attributes may now be any arbitrary expression rather than just string literals. (https://github.com/GREsau/cog_schemars/issues/204 / https://github.com/GREsau/cog_schemars/pull/327)
 - ⚠️ MSRV is now 1.65 ⚠️
 
 ## [1.0.0-alpha.10] - 2024-08-22
 
 ### Fixed
 
-- Fix some cases of unsatisfiable schemas generated when flattening enums (https://github.com/GREsau/schemars/pull/325 / https://github.com/GREsau/schemars/issues/164 / https://github.com/GREsau/schemars/issues/165)
+- Fix some cases of unsatisfiable schemas generated when flattening enums (https://github.com/GREsau/cog_schemars/pull/325 / https://github.com/GREsau/cog_schemars/issues/164 / https://github.com/GREsau/cog_schemars/issues/165)
 
 ## [1.0.0-alpha.9] - 2024-08-21
 
 ### Added
 
-- Add rustdoc for `derive(JsonSchema)` macro (https://github.com/GREsau/schemars/issues/322 / https://github.com/GREsau/schemars/issues/322)
+- Add rustdoc for `derive(JsonSchema)` macro (https://github.com/GREsau/cog_schemars/issues/322 / https://github.com/GREsau/cog_schemars/issues/322)
 
 ## [1.0.0-alpha.8] - 2024-08-21
 
 ### Changed
 
-- Replace `schemars::gen` module with `schemars::generate`. This is because `gen` is a reserved keyword in rust 2024, so can only be used as `r#gen`. The `schemars::gen` module is still available for ease of upgrading, but is marked as deprecated and _may_ be removed in the future 1.0.0 release. (https://github.com/GREsau/schemars/issues/306 / https://github.com/GREsau/schemars/pull/323)
+- Replace `cog_schemars::gen` module with `cog_schemars::generate`. This is because `gen` is a reserved keyword in rust 2024, so can only be used as `r#gen`. The `cog_schemars::gen` module is still available for ease of upgrading, but is marked as deprecated and _may_ be removed in the future 1.0.0 release. (https://github.com/GREsau/cog_schemars/issues/306 / https://github.com/GREsau/cog_schemars/pull/323)
 
 ## [1.0.0-alpha.7] - 2024-08-19
 
 ### Fixed
 
 - Fix behaviour of `flatten` for schemas with `additionalProperties`
-- Fix behaviour of `flatten` of multiple enums (https://github.com/GREsau/schemars/issues/165 / https://github.com/GREsau/schemars/pull/320)
+- Fix behaviour of `flatten` of multiple enums (https://github.com/GREsau/cog_schemars/issues/165 / https://github.com/GREsau/cog_schemars/pull/320)
 
 ## [1.0.0-alpha.6] - 2024-08-17
 
@@ -115,13 +115,13 @@
 
 - Reduce size of MIR output (and improve release-mode compile time) when deriving `JsonSchema` involving applying schema metadata
 - Fix `flatten`ing of `serde_json::Value`
-- Use absolute import for `Result` in derive output, ignoring any locally imported types called `Result` (https://github.com/GREsau/schemars/pull/307)
+- Use absolute import for `Result` in derive output, ignoring any locally imported types called `Result` (https://github.com/GREsau/cog_schemars/pull/307)
 
 ## [1.0.0-alpha.3] - 2024-08-10
 
 ### Added
 
-- `#[schemars(transform = some::transform)]` for applying arbitrary modifications to generated schemas. `some::transform` must be an expression of type `schemars::transform::Transform` - note that this can be a function with the signature `fn(&mut Schema) -> ()`.
+- `#[cog_schemars(transform = some::transform)]` for applying arbitrary modifications to generated schemas. `some::transform` must be an expression of type `cog_schemars::transform::Transform` - note that this can be a function with the signature `fn(&mut Schema) -> ()`.
 - `SchemaSettings` and `SchemaGenerator` are both now `Send`
 
 ### Changed (_⚠️ breaking changes ⚠️_)
@@ -134,13 +134,13 @@
   - `Visitor::visit_schema` -> `Transform::transform`
   - `visit::visit_schema` -> `transform::transform_subschemas`
 - `GenTransform` must also impl `Send`, but no longer needs to impl `Debug`
-- Doc comments no longer have newlines collapsed when generating the `description` property (https://github.com/GREsau/schemars/pull/310)
+- Doc comments no longer have newlines collapsed when generating the `description` property (https://github.com/GREsau/cog_schemars/pull/310)
 
 ## [1.0.0-alpha.2] - 2024-06-05
 
 ### Added
 
-- `#[schemars(extend("key" = value))]` attribute which can be used to add properties (or replace existing properties) in a generated schema (https://github.com/GREsau/schemars/issues/50 / https://github.com/GREsau/schemars/pull/297)
+- `#[cog_schemars(extend("key" = value))]` attribute which can be used to add properties (or replace existing properties) in a generated schema (https://github.com/GREsau/cog_schemars/issues/50 / https://github.com/GREsau/cog_schemars/pull/297)
   - Can be set on a struct, enum, or enum variant
   - Value can be any expression that results in a value implementing `Serialize`
   - Value can also be a JSON literal following the rules of `serde_json::json!(value)` macro, i.e. it can interpolate other values that implement `Serialize`
@@ -178,7 +178,7 @@
 
 - Removed deprecated `SchemaGenerator` methods `make_extensible`, `schema_for_any` and `schema_for_none`
 - Removed the `schema` module
-  - The `Schema` type is now accessible from the crate root (i.e. `schemars::Schema` instead of `schemars::schema::Schema`)
+  - The `Schema` type is now accessible from the crate root (i.e. `cog_schemars::Schema` instead of `cog_schemars::schema::Schema`)
   - All other types that were in the module have been removed:
     - `RootSchema`
     - `SchemaObject`
@@ -190,11 +190,11 @@
     - `ObjectValidation`
     - `InstanceType`
     - `SingleOrVec`
-- Removed `schemars::Set` and `schemars::Map` type aliases
+- Removed `cog_schemars::Set` and `cog_schemars::Map` type aliases
 - Removed the `impl_json_schema` feature flag - `JsonSchema` is now always implemented on `Schema`
 - Remove methods `visit_schema_object` and `visit_root_schema` from the `Visitor` trait (`visit_schema` is unchanged)
   - Visitors that previously defined `visit_schema_object` should instead define `visit_schema` and use an `if let Some(obj) = schema.as_object_mut()` or similar construct
-- Old versions of optional dependencies have been removed - all of these have newer versions (shown in brackets) which are supported by schemars
+- Old versions of optional dependencies have been removed - all of these have newer versions (shown in brackets) which are supported by cog_schemars
   - `indexmap` (consider using `indexmap2`)
   - `uuid08` (consider using `uuid1`)
   - `arrayvec05` (consider using `arrayvec07`)
@@ -205,31 +205,31 @@
 
 ### Fixed:
 
-- Fix `null` default not being set on generated schemas (https://github.com/GREsau/schemars/issues/295 / https://github.com/GREsau/schemars/pull/296)
+- Fix `null` default not being set on generated schemas (https://github.com/GREsau/cog_schemars/issues/295 / https://github.com/GREsau/cog_schemars/pull/296)
 
 ## [0.8.20] - 2024-05-18
 
 ### Fixed:
 
-- Revert unintentional change in behaviour when combining `default` and `required` attributes (https://github.com/GREsau/schemars/issues/292)
+- Revert unintentional change in behaviour when combining `default` and `required` attributes (https://github.com/GREsau/cog_schemars/issues/292)
 
 ## [0.8.19] - 2024-05-06
 
 ### Fixed:
 
-- Regression that caused a compile error when deriving `JsonSchema` on an enum with no variants (https://github.com/GREsau/schemars/issues/287)
+- Regression that caused a compile error when deriving `JsonSchema` on an enum with no variants (https://github.com/GREsau/cog_schemars/issues/287)
 
 ## [0.8.18] - 2024-05-06
 
 ### Fixed:
 
-- Reduce size of MIR output (and improve release-mode compile time) when deriving `JsonSchema` on enums (https://github.com/GREsau/schemars/pull/266 / https://github.com/GREsau/schemars/pull/286)
+- Reduce size of MIR output (and improve release-mode compile time) when deriving `JsonSchema` on enums (https://github.com/GREsau/cog_schemars/pull/266 / https://github.com/GREsau/cog_schemars/pull/286)
 
 ## [0.8.17] - 2024-04-28
 
 ### Changed:
 
-- Update to syn 2.0, which should improve compile times in many cases (https://github.com/GREsau/schemars/pull/281)
+- Update to syn 2.0, which should improve compile times in many cases (https://github.com/GREsau/cog_schemars/pull/281)
 
 ## [0.8.16] - 2023-11-11
 
@@ -241,30 +241,30 @@
 
 ### Added:
 
-- Implement `JsonSchema` for `BigDecimal` from `bigdecimal` 0.4 (https://github.com/GREsau/schemars/pull/237)
+- Implement `JsonSchema` for `BigDecimal` from `bigdecimal` 0.4 (https://github.com/GREsau/cog_schemars/pull/237)
 
 ## [0.8.14] - 2023-09-17
 
 ### Added:
 
-- Add `#[schemars(inner(...)]` attribute to specify schema for array items (https://github.com/GREsau/schemars/pull/234)
+- Add `#[cog_schemars(inner(...)]` attribute to specify schema for array items (https://github.com/GREsau/cog_schemars/pull/234)
 
 ### Changed:
 
-- New optional associated function on `JsonSchema` trait: `schema_id()`, which is similar to `schema_name()`, but does not have to be human-readable, and defaults to the type name including module path. This allows schemars to differentiate between types with the same name in different modules/crates (https://github.com/GREsau/schemars/issues/62 / https://github.com/GREsau/schemars/pull/247)
+- New optional associated function on `JsonSchema` trait: `schema_id()`, which is similar to `schema_name()`, but does not have to be human-readable, and defaults to the type name including module path. This allows cog_schemars to differentiate between types with the same name in different modules/crates (https://github.com/GREsau/cog_schemars/issues/62 / https://github.com/GREsau/cog_schemars/pull/247)
 
 ### Fixed:
 
-- Schemas for `rust_decimal::Decimal` and `bigdecimal::BigDecimal` now match how those types are serialized by default, i.e. as numeric strings (https://github.com/GREsau/schemars/pull/248)
+- Schemas for `rust_decimal::Decimal` and `bigdecimal::BigDecimal` now match how those types are serialized by default, i.e. as numeric strings (https://github.com/GREsau/cog_schemars/pull/248)
 
 ## [0.8.13] - 2023-08-28
 
 ### Added:
 
-- Implement `JsonSchema` for `semver::Version` (https://github.com/GREsau/schemars/pull/195 / https://github.com/GREsau/schemars/pull/238)
-- Include const generics in generated schema names (https://github.com/GREsau/schemars/pull/179 / https://github.com/GREsau/schemars/pull/239)
-- Implement `JsonSchema` for types from indexmap v2 (https://github.com/GREsau/schemars/pull/226 / https://github.com/GREsau/schemars/pull/240)
-- Implement `JsonSchema` for `serde_json::value::RawValue` (https://github.com/GREsau/schemars/pull/183)
+- Implement `JsonSchema` for `semver::Version` (https://github.com/GREsau/cog_schemars/pull/195 / https://github.com/GREsau/cog_schemars/pull/238)
+- Include const generics in generated schema names (https://github.com/GREsau/cog_schemars/pull/179 / https://github.com/GREsau/cog_schemars/pull/239)
+- Implement `JsonSchema` for types from indexmap v2 (https://github.com/GREsau/cog_schemars/pull/226 / https://github.com/GREsau/cog_schemars/pull/240)
+- Implement `JsonSchema` for `serde_json::value::RawValue` (https://github.com/GREsau/cog_schemars/pull/183)
 
 ### Changed:
 
@@ -274,35 +274,35 @@
 
 ### Added:
 
-- Implement `JsonSchema` for `smol_str::SmolStr` (https://github.com/GREsau/schemars/pull/72)
+- Implement `JsonSchema` for `smol_str::SmolStr` (https://github.com/GREsau/cog_schemars/pull/72)
 
 ### Changed:
 
-- Change `serde_json` dependency min version to 1.0.25 (was 1.0.0) (https://github.com/GREsau/schemars/pull/192)
+- Change `serde_json` dependency min version to 1.0.25 (was 1.0.0) (https://github.com/GREsau/cog_schemars/pull/192)
 
 ## [0.8.11] - 2022-10-02
 
 ### Added:
 
-- Replace auto-inferred trait bounds with bounds specified in `#[schemars(bound = "...")]` attribute
+- Replace auto-inferred trait bounds with bounds specified in `#[cog_schemars(bound = "...")]` attribute
 
 ### Changed:
 
-- Derived `JsonSchema` now respects attributes on unit enum variants (https://github.com/GREsau/schemars/pull/152)
+- Derived `JsonSchema` now respects attributes on unit enum variants (https://github.com/GREsau/cog_schemars/pull/152)
 - Minimum supported rust version is now 1.45.0
 
 ## [0.8.10] - 2022-05-17
 
-- Undo "Support generic default values in default attributes (https://github.com/GREsau/schemars/pull/83)" as it inadvertently introduced a breaking change (https://github.com/GREsau/schemars/issues/144)
+- Undo "Support generic default values in default attributes (https://github.com/GREsau/cog_schemars/pull/83)" as it inadvertently introduced a breaking change (https://github.com/GREsau/cog_schemars/issues/144)
 
 ## [0.8.9] - 2022-05-16
 
 ### Added:
 
-- ~~Support generic default values in `default` attributes (https://github.com/GREsau/schemars/pull/83)~~
+- ~~Support generic default values in `default` attributes (https://github.com/GREsau/cog_schemars/pull/83)~~
   - **This inadvertently introduced a breaking change and was removed in 0.8.10**
-- Add missing MIT licence text for usage of code from regex_syntax crate (https://github.com/GREsau/schemars/pull/132)
-- Support uuid v1 and arrayvec 0.7 via feature flags `uuid1` and `arrayvec07` (https://github.com/GREsau/schemars/pull/142)
+- Add missing MIT licence text for usage of code from regex_syntax crate (https://github.com/GREsau/cog_schemars/pull/132)
+- Support uuid v1 and arrayvec 0.7 via feature flags `uuid1` and `arrayvec07` (https://github.com/GREsau/cog_schemars/pull/142)
   - This also adds `uuid08` and `arrayvec05` feature flags for the previously supported versions of these crates. The existing `uuid` and `arrayvec` flags are still supported for backward-compatibility, but they are **deprecated**.
   - Similarly, `indexmap1` feature flag is added, and `indexmap` flag is **deprecated**.
 
@@ -310,59 +310,59 @@
 
 ### Added:
 
-- Implement `JsonSchema` for types from `rust_decimal` and `bigdecimal` crates (https://github.com/GREsau/schemars/pull/101)
+- Implement `JsonSchema` for types from `rust_decimal` and `bigdecimal` crates (https://github.com/GREsau/cog_schemars/pull/101)
 
 ### Fixed:
 
-- Fixes for internally tagged enums and flattening additional_properties (https://github.com/GREsau/schemars/pull/113)
+- Fixes for internally tagged enums and flattening additional_properties (https://github.com/GREsau/cog_schemars/pull/113)
 
 ## [0.8.7] - 2021-11-14
 
 ### Added:
 
-- Implement `JsonSchema` for `EnumSet` (https://github.com/GREsau/schemars/pull/92)
+- Implement `JsonSchema` for `EnumSet` (https://github.com/GREsau/cog_schemars/pull/92)
 
 ### Fixed:
 
-- Do not cause compile error when using a default value that doesn't implement `Serialize` (https://github.com/GREsau/schemars/issues/115)
+- Do not cause compile error when using a default value that doesn't implement `Serialize` (https://github.com/GREsau/cog_schemars/issues/115)
 
 ## [0.8.6] - 2021-09-26
 
 ### Changed:
 
-- Use `oneOf` instead of `anyOf` for enums when possible (https://github.com/GREsau/schemars/issues/108)
+- Use `oneOf` instead of `anyOf` for enums when possible (https://github.com/GREsau/cog_schemars/issues/108)
 
 ## [0.8.5] - 2021-09-20
 
 ### Fixed:
 
-- Allow fields with plain `#[validate]` attributes (https://github.com/GREsau/schemars/issues/109)
+- Allow fields with plain `#[validate]` attributes (https://github.com/GREsau/cog_schemars/issues/109)
 
 ## [0.8.4] - 2021-09-19
 
 ### Added:
 
-- `#[schemars(schema_with = "...")]` attribute can now be set on enum variants.
-- Deriving JsonSchema will now take into account `#[validate(...)]` attributes, compatible with the [validator](https://github.com/Keats/validator) crate (https://github.com/GREsau/schemars/pull/78)
+- `#[cog_schemars(schema_with = "...")]` attribute can now be set on enum variants.
+- Deriving JsonSchema will now take into account `#[validate(...)]` attributes, compatible with the [validator](https://github.com/Keats/validator) crate (https://github.com/GREsau/cog_schemars/pull/78)
 
 ## [0.8.3] - 2021-04-05
 
 ### Added:
 
-- Support for `#[schemars(crate = "...")]` attribute to allow deriving JsonSchema when the schemars crate is aliased to a different name (https://github.com/GREsau/schemars/pull/55 / https://github.com/GREsau/schemars/pull/80)
-- Implement `JsonSchema` for `bytes::Bytes` and `bytes::BytesMut` (https://github.com/GREsau/schemars/pull/68)
+- Support for `#[cog_schemars(crate = "...")]` attribute to allow deriving JsonSchema when the cog_schemars crate is aliased to a different name (https://github.com/GREsau/cog_schemars/pull/55 / https://github.com/GREsau/cog_schemars/pull/80)
+- Implement `JsonSchema` for `bytes::Bytes` and `bytes::BytesMut` (https://github.com/GREsau/cog_schemars/pull/68)
 
 ### Fixed:
 
-- Fix deriving JsonSchema on types defined inside macros (https://github.com/GREsau/schemars/issues/59 / https://github.com/GREsau/schemars/issues/66 / https://github.com/GREsau/schemars/pull/79)
+- Fix deriving JsonSchema on types defined inside macros (https://github.com/GREsau/cog_schemars/issues/59 / https://github.com/GREsau/cog_schemars/issues/66 / https://github.com/GREsau/cog_schemars/pull/79)
 
 ## [0.8.2] - 2021-03-27
 
 ### Added:
 
-- Enable generating a schema from any serializable value using `schema_for_value!(...)` macro or `SchemaGenerator::root_schema_for_value()`/`SchemaGenerator::into_root_schema_for_value()` methods (https://github.com/GREsau/schemars/pull/75)
-- `#[derive(JsonSchema_repr)]` can be used on C-like enums for generating a serde_repr-compatible schema (https://github.com/GREsau/schemars/pull/76)
-- Implement `JsonSchema` for `url::Url` (https://github.com/GREsau/schemars/pull/63)
+- Enable generating a schema from any serializable value using `schema_for_value!(...)` macro or `SchemaGenerator::root_schema_for_value()`/`SchemaGenerator::into_root_schema_for_value()` methods (https://github.com/GREsau/cog_schemars/pull/75)
+- `#[derive(JsonSchema_repr)]` can be used on C-like enums for generating a serde_repr-compatible schema (https://github.com/GREsau/cog_schemars/pull/76)
+- Implement `JsonSchema` for `url::Url` (https://github.com/GREsau/cog_schemars/pull/63)
 
 ## [0.8.1] - 2021-03-23
 
@@ -375,12 +375,12 @@
 
 - Minimum supported rust version is now 1.37.0
 - Deriving JsonSchema on enums now sets `additionalProperties` to false on generated schemas wherever serde doesn't accept unknown properties. This includes non-unit variants of externally tagged enums, and struct-style variants of all enums that have the `deny_unknown_fields` attribute.
-- Schemas for HashSet and BTreeSet now have `uniqueItems` set to true (https://github.com/GREsau/schemars/pull/64)
+- Schemas for HashSet and BTreeSet now have `uniqueItems` set to true (https://github.com/GREsau/cog_schemars/pull/64)
 
 ### Fixed
 
-- Fix use of `#[serde(transparent)]` in combination with `#[schemars(with = ...)]` (https://github.com/GREsau/schemars/pull/67)
-- Fix clippy `field_reassign_with_default` warning in schemars_derive generated code in rust <1.51 (https://github.com/GREsau/schemars/pull/65)
+- Fix use of `#[serde(transparent)]` in combination with `#[cog_schemars(with = ...)]` (https://github.com/GREsau/cog_schemars/pull/67)
+- Fix clippy `field_reassign_with_default` warning in cog_schemars_derive generated code in rust <1.51 (https://github.com/GREsau/cog_schemars/pull/65)
 - Prevent stack overflow when using `inline_subschemas` with recursive types
 
 ## [0.8.0] - 2020-09-27
@@ -389,10 +389,10 @@
 
 - `visit::Visitor`, a trait for updating a schema and all schemas it contains recursively. A `SchemaSettings` can now contain a list of visitors.
 - `into_object()` method added to `Schema` as a shortcut for `into::<SchemaObject>()`
-- Preserve order of schema properties under `preserve_order` feature flag (https://github.com/GREsau/schemars/issues/32)
+- Preserve order of schema properties under `preserve_order` feature flag (https://github.com/GREsau/cog_schemars/issues/32)
 - `SchemaGenerator::take_definitions()` which behaves similarly to the now-removed `into_definitions()` method but without consuming the generator
 - `SchemaGenerator::visitors_mut()` which returns an iterator over a generator's settings's visitors
-- `SchemaSettings::inline_subschemas` - enforces inlining of all subschemas instead of using references (https://github.com/GREsau/schemars/issues/44)
+- `SchemaSettings::inline_subschemas` - enforces inlining of all subschemas instead of using references (https://github.com/GREsau/cog_schemars/issues/44)
 
 ### Removed (**BREAKING CHANGES**):
 
@@ -407,7 +407,7 @@
 
 ### Fixed:
 
-- **BREAKING CHANGE** unknown items in `#[schemars(...)]` attributes now cause a compilation error (https://github.com/GREsau/schemars/issues/18)
+- **BREAKING CHANGE** unknown items in `#[cog_schemars(...)]` attributes now cause a compilation error (https://github.com/GREsau/cog_schemars/issues/18)
 
 ### Deprecated:
 
@@ -417,43 +417,43 @@
 
 ### Added:
 
-- `#[schemars(example = "...")]` attribute for setting examples on generated schemas (https://github.com/GREsau/schemars/issues/23)
+- `#[cog_schemars(example = "...")]` attribute for setting examples on generated schemas (https://github.com/GREsau/cog_schemars/issues/23)
 
 ## [0.7.5] - 2020-05-17
 
 ### Added:
 
 - Setting `#[deprecated]` attribute will now cause generated schemas to have the `deprecated` property set to `true`
-- Respect `#[serde(transparent)]` attribute (https://github.com/GREsau/schemars/issues/17)
-- `#[schemars(title = "...", description = "...")]` can now be used to set schema title/description. If present, these values will be used instead of doc comments (https://github.com/GREsau/schemars/issues/13)
+- Respect `#[serde(transparent)]` attribute (https://github.com/GREsau/cog_schemars/issues/17)
+- `#[cog_schemars(title = "...", description = "...")]` can now be used to set schema title/description. If present, these values will be used instead of doc comments (https://github.com/GREsau/cog_schemars/issues/13)
 
 ### Changed:
 
-- schemars_derive is now an optional dependency, but included by default
+- cog_schemars_derive is now an optional dependency, but included by default
 
 ## [0.7.4] - 2020-05-16
 
 ### Added:
 
-- If a struct is annotated with `#[serde(deny_unknown_fields)]`, generated schema will have `additionalProperties` set to `false` (https://github.com/GREsau/schemars/pull/30)
-- Set `type` property to `string` on simple enums (https://github.com/GREsau/schemars/issues/28)
+- If a struct is annotated with `#[serde(deny_unknown_fields)]`, generated schema will have `additionalProperties` set to `false` (https://github.com/GREsau/cog_schemars/pull/30)
+- Set `type` property to `string` on simple enums (https://github.com/GREsau/cog_schemars/issues/28)
 
 ## [0.7.3] - 2020-05-15
 
 ### Added:
 
-- `#[schemars(schema_with = "...")]` attribute can be set on variants and fields. This allows you to specify another function which returns the schema you want, which is particularly useful on fields of types that don't implement the JsonSchema trait (https://github.com/GREsau/schemars/issues/15)
+- `#[cog_schemars(schema_with = "...")]` attribute can be set on variants and fields. This allows you to specify another function which returns the schema you want, which is particularly useful on fields of types that don't implement the JsonSchema trait (https://github.com/GREsau/cog_schemars/issues/15)
 
 ### Fixed
 
-- `#[serde(with = "...")]`/`#[schemars(with = "...")]` attributes on enum variants are now respected
-- Some compiler errors generated by schemars_derive should now have more accurate spans
+- `#[serde(with = "...")]`/`#[cog_schemars(with = "...")]` attributes on enum variants are now respected
+- Some compiler errors generated by cog_schemars_derive should now have more accurate spans
 
 ## [0.7.2] - 2020-04-30
 
 ### Added:
 
-- Enable deriving JsonSchema on adjacent tagged enums (https://github.com/GREsau/schemars/issues/4)
+- Enable deriving JsonSchema on adjacent tagged enums (https://github.com/GREsau/cog_schemars/issues/4)
 
 ## [0.7.1] - 2020-04-11
 
@@ -463,7 +463,7 @@
 
 ### Fixed
 
-- Fixed a bug in schemars_derive causing a compile error when the `default`, `skip_serializing_if`, and `serialize_with`/`with` attributes are used together (https://github.com/GREsau/schemars/issues/26)
+- Fixed a bug in cog_schemars_derive causing a compile error when the `default`, `skip_serializing_if`, and `serialize_with`/`with` attributes are used together (https://github.com/GREsau/cog_schemars/issues/26)
 
 ## [0.7.0] - 2020-03-24
 
@@ -475,9 +475,9 @@
 
 ### Fixed:
 
-- When deriving `JsonSchema` on structs, `Option<T>` struct fields are no longer included in the list of required properties in the schema (https://github.com/GREsau/schemars/issues/11)
-- Fix deriving `JsonSchema` when a non-std `String` type is in scope (https://github.com/GREsau/schemars/pull/19)
-- This will now compile: `#[schemars(with="()")]`
+- When deriving `JsonSchema` on structs, `Option<T>` struct fields are no longer included in the list of required properties in the schema (https://github.com/GREsau/cog_schemars/issues/11)
+- Fix deriving `JsonSchema` when a non-std `String` type is in scope (https://github.com/GREsau/cog_schemars/pull/19)
+- This will now compile: `#[cog_schemars(with="()")]`
 
 ### Added:
 
@@ -508,7 +508,7 @@
 
 ### Added:
 
-- Documentation website available at https://graham.cool/schemars/!
+- Documentation website available at https://graham.cool/cog_schemars/!
 
 ### Changed:
 
@@ -526,8 +526,8 @@
 
 ### Added:
 
-- When deriving `JsonSchema`, the schema's `title` and `description` are now set from `#[doc]` comments (https://github.com/GREsau/schemars/issues/7)
-- When deriving `JsonSchema` on structs using a `#[serde(default)]` attribute, the schema's properties will now include `default`, unless the default value is skipped by the field's `skip_serializing_if` function (https://github.com/GREsau/schemars/issues/6)
+- When deriving `JsonSchema`, the schema's `title` and `description` are now set from `#[doc]` comments (https://github.com/GREsau/cog_schemars/issues/7)
+- When deriving `JsonSchema` on structs using a `#[serde(default)]` attribute, the schema's properties will now include `default`, unless the default value is skipped by the field's `skip_serializing_if` function (https://github.com/GREsau/cog_schemars/issues/6)
 
 ### Changed:
 
@@ -543,7 +543,7 @@
 
 ### Added:
 
-- Implemented `JsonSchema` for more standard library types (https://github.com/GREsau/schemars/issues/3)
+- Implemented `JsonSchema` for more standard library types (https://github.com/GREsau/cog_schemars/issues/3)
 
 ### Changed:
 

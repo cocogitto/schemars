@@ -1,4 +1,4 @@
-use schemars::{schema_for, JsonSchema_repr};
+use cog_schemars::{schema_for, JsonSchema_repr};
 
 #[derive(JsonSchema_repr)]
 #[repr(u8)]

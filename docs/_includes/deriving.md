@@ -5,7 +5,7 @@ The most important trait in Schemars is `JsonSchema`, and the most important fun
 Usually, all you need to do to use it is to add a `#[derive(JsonSchema)]` attribute to your type:
 
 ```rust
-use schemars::{JsonSchema, schema_for};
+use cog_schemars::{JsonSchema, schema_for};
 
 #[derive(JsonSchema, Debug)]
 struct Point {

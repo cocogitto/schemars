@@ -9,7 +9,7 @@ permalink: /v0/
 
 Schemars is a library to generate JSON Schema documents from Rust data structures.
 
-This is built on Rust's trait system - any type which implements the [`JsonSchema`](https://docs.rs/schemars/latest/schemars/trait.JsonSchema.html) trait can have a JSON Schema generated describing that type. Schemars implements this on many standard library types, and provides a derive macro to automatically implement it on custom types.
+This is built on Rust's trait system - any type which implements the [`JsonSchema`](https://docs.rs/cog_schemars/latest/cog_schemars/trait.JsonSchema.html) trait can have a JSON Schema generated describing that type. Schemars implements this on many standard library types, and provides a derive macro to automatically implement it on custom types.
 
 One of the main aims of this library is compatibility with [Serde](https://github.com/serde-rs/serde). Any generated schema _should_ match how [serde_json](https://github.com/serde-rs/json) would serialize/deserialize to/from JSON. To support this, Schemars will check for any `#[serde(...)]` attributes on types that derive `JsonSchema`, and adjust the generated schema accordingly.
 

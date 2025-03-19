@@ -16,7 +16,7 @@ fn schema_name() -> String;
 
 This function returns the human-readable friendly name of the type's schema, which frequently is just the name of the type itself. The schema name is used as the title for root schemas, and the key within the root's `definitions` property for subschemas.
 
-NB in a future version of schemars, it's likely that this function will be changed to return a `Cow<'static, str>`.
+NB in a future version of cog_schemars, it's likely that this function will be changed to return a `Cow<'static, str>`.
 
 ## schema_id
 

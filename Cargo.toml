@@ -1,6 +1,6 @@
 [workspace]
 members = [
-    "schemars",
-    "schemars_derive"
+    "cog_schemars",
+    "cog_schemars_derive"
 ]
 resolver = "2"

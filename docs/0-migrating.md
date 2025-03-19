@@ -30,15 +30,15 @@ All optional dependencies are now suffixed by their version:
 
 ## `Schema` is now a wrapper around `serde_json::Value`
 
-`Schema` is now defined as a wrapper around a `serde_json::Value` (which must be a `Value::Bool` or `Value::Object`), rather than a struct with a field for each JSON schema keyword (with some intermediary types). `Schema` is now available as `schemars::Schema` instead of `schemars::schema::Schema`, and all other types that were in the `schemars::schema` module have now been removed. Functions that previously returned a `RootSchema` now just return a `Schema`.
+`Schema` is now defined as a wrapper around a `serde_json::Value` (which must be a `Value::Bool` or `Value::Object`), rather than a struct with a field for each JSON schema keyword (with some intermediary types). `Schema` is now available as `cog_schemars::Schema` instead of `cog_schemars::schema::Schema`, and all other types that were in the `cog_schemars::schema` module have now been removed. Functions that previously returned a `RootSchema` now just return a `Schema`.
 
 A new macro `json_schema!(...)` is available to easily create new instances of `Schema`, which functions similarly to the [`serde_json::json!(...)` macro](https://docs.rs/serde_json/latest/serde_json/macro.json.html).
 
-Here's how you might create and modify a `Schema` in schemars v0.8:
+Here's how you might create and modify a `Schema` in cog_schemars v0.8:
 
 ```rust
-use schemars::schema::{InstanceType, ObjectValidation, Schema, SchemaObject};
-use schemars::Map;
+use cog_schemars::schema::{InstanceType, ObjectValidation, Schema, SchemaObject};
+use cog_schemars::Map;
 
 // Create a Schema for an object with property `foo`
 let schema_object = SchemaObject {
@@ -60,7 +60,7 @@ obj.required.insert("foo".to_owned());
 And the same thing in v1.0:
 
 ```rust
-use schemars::{json_schema, Schema};
+use cog_schemars::{json_schema, Schema};
 
 // Create a Schema for an object with property `foo`
 let mut schema: Schema = json_schema!({
@@ -93,11 +93,11 @@ The `visit` module and `Visitor` trait have been replace with `transform` and `T
 - `visit::visit_schema` -> `transform::transform_subschemas`
   - `visit_schema_object` and `visit_root_schema` functions have been removed
 
-So if you had defined this `Visitor` in schemars 0.8:
+So if you had defined this `Visitor` in cog_schemars 0.8:
 
 ```rust
-use schemars::schema::SchemaObject;
-use schemars::visit::{visit_schema_object, Visitor};
+use cog_schemars::schema::SchemaObject;
+use cog_schemars::visit::{visit_schema_object, Visitor};
 
 pub struct MyVisitor;
 
@@ -113,15 +113,15 @@ impl Visitor for MyVisitor {
     }
 }
 
-let mut schema = schemars::schema_for!(str);
+let mut schema = cog_schemars::schema_for!(str);
 MyVisitor.visit_root_schema(&mut schema);
 ```
 
-Then the equivalent `Transform` in schemars 1.0 would be:
+Then the equivalent `Transform` in cog_schemars 1.0 would be:
 
 ```rust
-use schemars::transform::{transform_subschemas, Transform};
-use schemars::Schema;
+use cog_schemars::transform::{transform_subschemas, Transform};
+use cog_schemars::Schema;
 
 pub struct MyTransform;
 
@@ -135,7 +135,7 @@ impl Transform for MyTransform {
     }
 }
 
-let mut schema = schemars::schema_for!(str);
+let mut schema = cog_schemars::schema_for!(str);
 MyTransform.transform(&mut schema);
 ```
 
@@ -150,7 +150,7 @@ fn my_transform(schema: &mut Schema) {
     transform_subschemas(&mut my_transform, schema);
 }
 
-let mut schema = schemars::schema_for!(str);
+let mut schema = cog_schemars::schema_for!(str);
 my_transform(&mut schema);
 // Or equivalently:
 // my_transform.transform(&mut schema);
@@ -163,26 +163,26 @@ fn my_transform2(schema: &mut Schema) {
     schema.insert("my_property".to_string(), serde_json::json!("hello world"));
 }
 
-let mut schema = schemars::schema_for!(str);
+let mut schema = cog_schemars::schema_for!(str);
 RecursiveTransform(my_transform2).transform(&mut schema);
 ```
 
 ## Changes to `#[validate(...)]` attributes
 
-Since [adding support for `#[validate(...)]` attributes](https://graham.cool/schemars/v0/deriving/attributes/#supported-validator-attributes), the [Validator](https://github.com/Keats/validator) crate has made several changes to its supported attributes. Accordingly, Schemars 1.0 has updated its handling of `#[validate(...)]` attributes to match the latest version (currently 0.18.1) of the Validator crate - this removes some attributes, and changes the syntax of others:
+Since [adding support for `#[validate(...)]` attributes](https://graham.cool/cog_schemars/v0/deriving/attributes/#supported-validator-attributes), the [Validator](https://github.com/Keats/validator) crate has made several changes to its supported attributes. Accordingly, Schemars 1.0 has updated its handling of `#[validate(...)]` attributes to match the latest version (currently 0.18.1) of the Validator crate - this removes some attributes, and changes the syntax of others:
 
-- The `#[validate(phone)]`/`#[schemars(phone)]` attribute is removed. If you want the old behaviour of setting the "format" property on the generated schema, you can use `#[schemars(extend("format = "phone"))]` instead.
-- The `#[validate(required_nested)]`/`#[schemars(required_nested)]` attribute is removed. If you want the old behaviour, you can use `#[schemars(required)]` instead.
-- The `#[validate(regex = "...")]`/`#[schemars(regex = "...")]` attribute can no longer use `name = "value"` syntax. Instead, you can use:
+- The `#[validate(phone)]`/`#[cog_schemars(phone)]` attribute is removed. If you want the old behaviour of setting the "format" property on the generated schema, you can use `#[cog_schemars(extend("format = "phone"))]` instead.
+- The `#[validate(required_nested)]`/`#[cog_schemars(required_nested)]` attribute is removed. If you want the old behaviour, you can use `#[cog_schemars(required)]` instead.
+- The `#[validate(regex = "...")]`/`#[cog_schemars(regex = "...")]` attribute can no longer use `name = "value"` syntax. Instead, you can use:
 
   - `#[validate(regex(path = ...)]`
-  - `#[schemars(regex(pattern = ...)]`
-  - `#[schemars(pattern(...)]` (Garde-style)
+  - `#[cog_schemars(regex(pattern = ...)]`
+  - `#[cog_schemars(pattern(...)]` (Garde-style)
 
-- Similarly, the `#[validate(contains = "...")]`/`#[schemars(contains = "...")]` attribute can no longer use `name = "value"` syntax. Instead, you can use:
+- Similarly, the `#[validate(contains = "...")]`/`#[cog_schemars(contains = "...")]` attribute can no longer use `name = "value"` syntax. Instead, you can use:
 
   - `#[validate(contains(pattern = ...))]`
-  - `#[schemars(contains(pattern = ...))]`
-  - `#[schemars(contains(...))]` (Garde-style)
+  - `#[cog_schemars(contains(pattern = ...))]`
+  - `#[cog_schemars(contains(...))]` (Garde-style)
 
-As an alternative option, Schemars 1.0 also adds support for `#[garde(...)]` attributes used with the [Garde](https://github.com/jprochazk/garde) crate, along with equivalent `#[schemars(...)]` attributes. See [the documentation](https://graham.cool/schemars/deriving/attributes/#supported-validatorgarde-attributes) for a list of all supported attributes.
+As an alternative option, Schemars 1.0 also adds support for `#[garde(...)]` attributes used with the [Garde](https://github.com/jprochazk/garde) crate, along with equivalent `#[cog_schemars(...)]` attributes. See [the documentation](https://graham.cool/cog_schemars/deriving/attributes/#supported-validatorgarde-attributes) for a list of all supported attributes.

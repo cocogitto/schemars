@@ -1,0 +1,6 @@
+error: Expected a `fn(&mut Schema)` or other value implementing `cog_schemars::transform::Transform`, found `&str`.
+       Did you mean `#[cog_schemars(transform = x)]`?
+ --> tests/ui/transform_str.rs:4:28
+  |
+4 | #[cog_schemars(transform = "x")]
+  |                            ^^^

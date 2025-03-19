@@ -2,9 +2,9 @@
 
 You can add attributes to your types to customize Schemars's derived `JsonSchema` implementation.
 
-[Serde](https://serde.rs/) allows setting `#[serde(...)]` attributes which change how types are serialized, and Schemars will generally respect these attributes to ensure that generated schemas will match how the type is serialized by serde_json. `#[serde(...)]` attributes can be overriden using `#[schemars(...)]` attributes, which behave identically (e.g. `#[schemars(rename_all = "camelCase")]`). You may find this useful if you want to change the generated schema without affecting Serde's behaviour, or if you're just not using Serde.
+[Serde](https://serde.rs/) allows setting `#[serde(...)]` attributes which change how types are serialized, and Schemars will generally respect these attributes to ensure that generated schemas will match how the type is serialized by serde_json. `#[serde(...)]` attributes can be overriden using `#[cog_schemars(...)]` attributes, which behave identically (e.g. `#[cog_schemars(rename_all = "camelCase")]`). You may find this useful if you want to change the generated schema without affecting Serde's behaviour, or if you're just not using Serde.
 
-[Validator](https://github.com/Keats/validator) and [Garde](https://github.com/jprochazk/garde) allow setting `#[validate(...)]`/`#[garde(...)]` attributes to restrict valid values of particular fields, many of which will be used by Schemars to generate more accurate schemas. These can also be overridden by `#[schemars(...)]` attributes.
+[Validator](https://github.com/Keats/validator) and [Garde](https://github.com/jprochazk/garde) allow setting `#[validate(...)]`/`#[garde(...)]` attributes to restrict valid values of particular fields, many of which will be used by Schemars to generate more accurate schemas. These can also be overridden by `#[cog_schemars(...)]` attributes.
 
 <details open>
 <summary style="font-weight: bold">
@@ -49,7 +49,7 @@ TABLE OF CONTENTS
 
 <h3 id="rename">
 
-`#[serde(rename = "name")]` / `#[schemars(rename = "name")]`
+`#[serde(rename = "name")]` / `#[cog_schemars(rename = "name")]`
 
 </h3>
 
@@ -61,7 +61,7 @@ Serde docs: [container](https://serde.rs/container-attrs.html#rename) / [variant
 
 <h3 id="rename_all">
 
-`#[serde(rename_all = "...")]` / `#[schemars(rename_all = "...")]`
+`#[serde(rename_all = "...")]` / `#[cog_schemars(rename_all = "...")]`
 
 </h3>
 
@@ -71,7 +71,7 @@ Serde docs: [container](https://serde.rs/container-attrs.html#rename_all) / [var
 
 <h3 id="rename_all_fields">
 
-`#[serde(rename_all_fields = "...")]` / `#[schemars(rename_all_fields = "...")]`
+`#[serde(rename_all_fields = "...")]` / `#[cog_schemars(rename_all_fields = "...")]`
 
 </h3>
 
@@ -81,9 +81,9 @@ Serde docs: [container](https://serde.rs/container-attrs.html#rename_all)
 
 <h3 id="tag" style="line-height: 1.5">
 
-`#[serde(tag = "type")]` / `#[schemars(tag = "type")]` <br />
-`#[serde(tag = "t", content = "c")]` / `#[schemars(tag = "t", content = "c")]` <br />
-`#[serde(untagged)]` / `#[schemars(untagged)]`
+`#[serde(tag = "type")]` / `#[cog_schemars(tag = "type")]` <br />
+`#[serde(tag = "t", content = "c")]` / `#[cog_schemars(tag = "t", content = "c")]` <br />
+`#[serde(untagged)]` / `#[cog_schemars(untagged)]`
 
 </h3>
 
@@ -93,7 +93,7 @@ Serde docs: [`tag`](https://serde.rs/container-attrs.html#tag) / [`tag`+`content
 
 <h3 id="default">
 
-`#[serde(default)]` / `#[schemars(default)]` / `#[serde(default = "path")]` / `#[schemars(default = "path")]`
+`#[serde(default)]` / `#[cog_schemars(default)]` / `#[serde(default = "path")]` / `#[cog_schemars(default = "path")]`
 
 </h3>
 
@@ -103,7 +103,7 @@ Serde docs: [container](https://serde.rs/container-attrs.html#default) / [field]
 
 <h3 id="skip">
 
-`#[serde(skip)]` / `#[schemars(skip)]`
+`#[serde(skip)]` / `#[cog_schemars(skip)]`
 
 </h3>
 
@@ -113,7 +113,7 @@ Serde docs: [variant](https://serde.rs/variant-attrs.html#skip) / [field](https:
 
 <h3 id="skip_serializing">
 
-`#[serde(skip_serializing)]` / `#[schemars(skip_serializing)]`
+`#[serde(skip_serializing)]` / `#[cog_schemars(skip_serializing)]`
 
 </h3>
 
@@ -123,7 +123,7 @@ Serde docs: [field](https://serde.rs/field-attrs.html#skip_deserializing)
 
 <h3 id="skip_deserializing">
 
-`#[serde(skip_deserializing)]` / `#[schemars(skip_deserializing)]`
+`#[serde(skip_deserializing)]` / `#[cog_schemars(skip_deserializing)]`
 
 </h3>
 
@@ -133,7 +133,7 @@ Serde docs: [variant](https://serde.rs/variant-attrs.html#skip_deserializing) / 
 
 <h3 id="flatten">
 
-`#[serde(flatten)]` / `#[schemars(flatten)]`
+`#[serde(flatten)]` / `#[cog_schemars(flatten)]`
 
 </h3>
 
@@ -143,7 +143,7 @@ Serde docs: [field](https://serde.rs/field-attrs.html#flatten)
 
 <h3 id="with">
 
-`#[serde(with = "Type")]` / `#[schemars(with = "Type")]`
+`#[serde(with = "Type")]` / `#[cog_schemars(with = "Type")]`
 
 </h3>
 
@@ -155,7 +155,7 @@ Serde docs: [variant](https://serde.rs/variant-attrs.html#with) / [field](https:
 
 <h3 id="deny_unknown_fields">
 
-`#[serde(deny_unknown_fields)]` / `#[schemars(deny_unknown_fields)]`
+`#[serde(deny_unknown_fields)]` / `#[cog_schemars(deny_unknown_fields)]`
 
 </h3>
 
@@ -165,7 +165,7 @@ Serde docs: [container](https://serde.rs/container-attrs.html#deny_unknown_field
 
 <h3 id="transparent">
 
-`#[serde(transparent)]` / `#[schemars(transparent)]`
+`#[serde(transparent)]` / `#[cog_schemars(transparent)]`
 
 </h3>
 
@@ -175,11 +175,11 @@ Serde docs: [container](https://serde.rs/container-attrs.html#transparent)
 
 <h3 id="bound">
 
-`#[schemars(bound = "...")]`
+`#[cog_schemars(bound = "...")]`
 
 </h3>
 
-Where-clause for the JsonSchema impl. This replaces any trait bounds inferred by schemars. Schemars does **not** use trait bounds from `#[serde(bound)]` attributes.
+Where-clause for the JsonSchema impl. This replaces any trait bounds inferred by cog_schemars. Schemars does **not** use trait bounds from `#[serde(bound)]` attributes.
 
 Serde docs: [container](https://serde.rs/container-attrs.html#bound)
 
@@ -191,11 +191,11 @@ Serde docs: [container](https://serde.rs/container-attrs.html#bound)
 
 <h3 id="formats">
 
-`#[validate(email)]` / `#[garde(email)]` / `#[schemars(email)]`<br />
-`#[validate(url)]` / `#[garde(url)]`/ `#[schemars(url)]`<br />
-`#[garde(ip)]`/ `#[schemars(ip)]`<br />
-`#[garde(ipv4)]`/ `#[schemars(ipv4)]`<br />
-`#[garde(ipv6)]`/ `#[schemars(ip)v6]`<br />
+`#[validate(email)]` / `#[garde(email)]` / `#[cog_schemars(email)]`<br />
+`#[validate(url)]` / `#[garde(url)]`/ `#[cog_schemars(url)]`<br />
+`#[garde(ip)]`/ `#[cog_schemars(ip)]`<br />
+`#[garde(ipv4)]`/ `#[cog_schemars(ipv4)]`<br />
+`#[garde(ipv6)]`/ `#[cog_schemars(ip)v6]`<br />
 
 </h3>
 
@@ -205,8 +205,8 @@ Validator docs: [email](https://github.com/Keats/validator#email) / [url](https:
 
 <h3 id="length">
 
-`#[validate(length(min = 1, max = 10))]` / `#[garde(length(min = 1, max = 10))]` / `#[schemars(length(min = 1, max = 10))]`<br />
-`#[validate(length(equal = 10))]` / `#[garde(length(equal = 10))]` / `#[schemars(length(equal = 10))]`
+`#[validate(length(min = 1, max = 10))]` / `#[garde(length(min = 1, max = 10))]` / `#[cog_schemars(length(min = 1, max = 10))]`<br />
+`#[validate(length(equal = 10))]` / `#[garde(length(equal = 10))]` / `#[cog_schemars(length(equal = 10))]`
 
 </h3>
 
@@ -216,7 +216,7 @@ Validator docs: [length](https://github.com/Keats/validator#length)
 
 <h3 id="range">
 
-`#[validate(range(min = 1, max = 10))]` / `#[garde(range(min = 1, max = 10))]` / `#[schemars(range(min = 1, max = 10))]`
+`#[validate(range(min = 1, max = 10))]` / `#[garde(range(min = 1, max = 10))]` / `#[cog_schemars(range(min = 1, max = 10))]`
 
 </h3>
 
@@ -227,21 +227,21 @@ Validator docs: [range](https://github.com/Keats/validator#range)
 <h3 id="regex">
 
 `#[validate(regex(path = *static_regex)]`<br />
-`#[schemars(regex(pattern = r"^\d+$"))]` / `#[schemars(regex(pattern = *static_regex))]`<br />
-`#[garde(pattern(r"^\d+$")]` / `#[schemars(pattern(r"^\d+$")]`/ `#[schemars(pattern(*static_regex)]`
+`#[cog_schemars(regex(pattern = r"^\d+$"))]` / `#[cog_schemars(regex(pattern = *static_regex))]`<br />
+`#[garde(pattern(r"^\d+$")]` / `#[cog_schemars(pattern(r"^\d+$")]`/ `#[cog_schemars(pattern(*static_regex)]`
 
 </h3>
 
 Sets the `pattern` property for string schemas. The `static_regex` will typically refer to a [`Regex`](https://docs.rs/regex/*/regex/struct.Regex.html) instance, but Schemars allows it to be any value with a `to_string()` method.
 
-`regex(pattern = ...)` is a Schemars extension, and not currently supported by the Validator crate. When using this form (or the Garde-style `pattern` attribute), you may want to use a `r"raw string literal"` so that `\\` characters in the regex pattern are not interpreted as escape sequences in the string. Using the `path = ...` form is not allowed in a `#[schemars(...)]` attribute.
+`regex(pattern = ...)` is a Schemars extension, and not currently supported by the Validator crate. When using this form (or the Garde-style `pattern` attribute), you may want to use a `r"raw string literal"` so that `\\` characters in the regex pattern are not interpreted as escape sequences in the string. Using the `path = ...` form is not allowed in a `#[cog_schemars(...)]` attribute.
 
 Validator docs: [regex](https://github.com/Keats/validator#regex)
 
 <h3 id="contains">
 
-`#[validate(contains(pattern = "string"))]` / `#[schemars(contains(pattern = "string"))]`<br />
-`#[garde(contains("string"))]` / `#[schemars(contains("string"))]`
+`#[validate(contains(pattern = "string"))]` / `#[cog_schemars(contains(pattern = "string"))]`<br />
+`#[garde(contains("string"))]` / `#[cog_schemars(contains("string"))]`
 
 </h3>
 
@@ -251,7 +251,7 @@ Validator docs: [contains](https://github.com/Keats/validator#contains)
 
 <h3 id="required">
 
-`#[validate(required)]` / `#[garde(required)]` / `#[schemars(required)]`<br />
+`#[validate(required)]` / `#[garde(required)]` / `#[cog_schemars(required)]`<br />
 
 </h3>
 
@@ -263,7 +263,7 @@ Validator docs: [required](https://github.com/Keats/validator#required)
 
 <h3 id="inner">
 
-`#[garde(inner(...))]` / `#[schemars(inner(...))]`
+`#[garde(inner(...))]` / `#[cog_schemars(inner(...))]`
 
 </h3>
 
@@ -271,7 +271,7 @@ Sets properties specified by [validation attributes](#supported-validatorgarde-a
 
 ```rust
 struct Struct {
-    #[schemars(inner(url, pattern("^https://")))]
+    #[cog_schemars(inner(url, pattern("^https://")))]
     urls: Vec<String>,
 }
 ```
@@ -282,15 +282,15 @@ Garde docs: [Inner type validation](https://github.com/jprochazk/garde?tab=readm
 
 <h3 id="schema_with">
 
-`#[schemars(schema_with = "some::function")]`
+`#[cog_schemars(schema_with = "some::function")]`
 
 </h3>
 
-Set on a variant or field to generate this field's schema using the given function. This function must be callable as `fn(&mut schemars::SchemaGenerator) -> schemars::schema::Schema`.
+Set on a variant or field to generate this field's schema using the given function. This function must be callable as `fn(&mut cog_schemars::SchemaGenerator) -> cog_schemars::schema::Schema`.
 
 <h3 id="title-description">
 
-`#[schemars(title = "Some title", description = "Some description")]`
+`#[cog_schemars(title = "Some title", description = "Some description")]`
 
 </h3>
 
@@ -298,15 +298,15 @@ Set on a container, variant or field to set the generated schema's `title` and/o
 
 <h3 id="example">
 
-`#[schemars(example = value)]`
+`#[cog_schemars(example = value)]`
 
 </h3>
 
 Set on a container, variant or field to include the given value in the generated schema's `examples`. The value can be any type that implements serde's `Serialize` trait - it does not need to be the same type as the attached struct/field. This attribute can be repeated to specify multiple examples.
 
-In previous versions of schemars, the value had to be a string literal identifying a defined function that would be called to return the actual example value (similar to the [`default`](#default) attribute). To avoid the new attribute behaviour from silently breaking old consumers, string literals consisting of a single word (e.g. `#[schemars(example = "my_fn")]`) or a path (e.g. `#[schemars(example = "my_mod::my_fn")]`) are currently disallowed. This restriction may be relaxed in a future version of schemars, but for now if you want to include such a string as the literal example value, this can be done by borrowing the value, e.g. `#[schemars(example = &"my_fn")]`. If you instead want to call a function to get the example value (mirrorring the old behaviour), you must use an explicit function call expression, e.g. `#[schemars(example = my_fn())]`.
+In previous versions of cog_schemars, the value had to be a string literal identifying a defined function that would be called to return the actual example value (similar to the [`default`](#default) attribute). To avoid the new attribute behaviour from silently breaking old consumers, string literals consisting of a single word (e.g. `#[cog_schemars(example = "my_fn")]`) or a path (e.g. `#[cog_schemars(example = "my_mod::my_fn")]`) are currently disallowed. This restriction may be relaxed in a future version of cog_schemars, but for now if you want to include such a string as the literal example value, this can be done by borrowing the value, e.g. `#[cog_schemars(example = &"my_fn")]`. If you instead want to call a function to get the example value (mirrorring the old behaviour), you must use an explicit function call expression, e.g. `#[cog_schemars(example = my_fn())]`.
 
-Alternatively, to directly set multiple examples without repeating `example = ...` attribute, you can instead use the [`extend`](#extend) attribute, e.g. `#[schemars(extend("examples" = [1, 2, 3]))]`.
+Alternatively, to directly set multiple examples without repeating `example = ...` attribute, you can instead use the [`extend`](#extend) attribute, e.g. `#[cog_schemars(extend("examples" = [1, 2, 3]))]`.
 
 <h3 id="deprecated">
 
@@ -318,15 +318,15 @@ Set the Rust built-in [`deprecated`](https://doc.rust-lang.org/edition-guide/rus
 
 <h3 id="crate">
 
-`#[schemars(crate = "other_crate::schemars")]`
+`#[cog_schemars(crate = "other_crate::cog_schemars")]`
 
 </h3>
 
-Set the path to the schemars crate instance the generated code should depend on. This is mostly useful for other crates that depend on schemars in their macros.
+Set the path to the cog_schemars crate instance the generated code should depend on. This is mostly useful for other crates that depend on cog_schemars in their macros.
 
 <h3 id="extend">
 
-`#[schemars(extend("key" = value))]`
+`#[cog_schemars(extend("key" = value))]`
 
 </h3>
 
@@ -336,17 +336,17 @@ The key must be a quoted string, and the value can be any expression that produc
 
 ```plaintext
 #[derive(JsonSchema)]
-#[schemars(extend("simple" = "string value", "complex" = {"array": [1, 2, 3]}))]
+#[cog_schemars(extend("simple" = "string value", "complex" = {"array": [1, 2, 3]}))]
 struct Struct;
 ```
 
 <h3 id="transform">
 
-`#[schemars(transform = some::transform)]`
+`#[cog_schemars(transform = some::transform)]`
 
 </h3>
 
-Set on a container, variant or field to run a `schemars::transform::Transform` against the generated schema. This can be specified multiple times to run multiple transforms.
+Set on a container, variant or field to run a `cog_schemars::transform::Transform` against the generated schema. This can be specified multiple times to run multiple transforms.
 
 The `Transform` trait is implemented on functions with the signature `fn(&mut Schema) -> ()`, allowing you to do this:
 
@@ -356,7 +356,7 @@ fn my_transform(schema: &mut Schema) {
 }
 
 #[derive(JsonSchema)]
-#[schemars(transform = my_transform)]
+#[cog_schemars(transform = my_transform)]
 struct Struct;
 ```
 

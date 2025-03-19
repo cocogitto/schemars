@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
 
-cd schemars/examples
+cd cog_schemars/examples
 
 rm -f *.schema.json
 
@@ -16,4 +16,4 @@ cd ../..
 rm -f docs/_includes/examples/*.rs
 rm -f docs/_includes/examples/*.schema.json
 
-cp schemars/examples/* docs/_includes/examples/
+cp cog_schemars/examples/* docs/_includes/examples/

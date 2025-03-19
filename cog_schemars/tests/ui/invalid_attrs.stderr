@@ -1,0 +1,29 @@
+error: expected serde default attribute to be a string: `default = "..."`
+ --> tests/ui/invalid_attrs.rs:4:19
+  |
+4 | #[serde(default = 0, foo, deny_unknown_fields, deny_unknown_fields)]
+  |                   ^
+
+error: duplicate serde attribute `deny_unknown_fields`
+ --> tests/ui/invalid_attrs.rs:4:48
+  |
+4 | #[serde(default = 0, foo, deny_unknown_fields, deny_unknown_fields)]
+  |                                                ^^^^^^^^^^^^^^^^^^^
+
+error: expected serde default attribute to be a string: `default = "..."`
+ --> tests/ui/invalid_attrs.rs:8:26
+  |
+8 | #[cog_schemars(default = 0, foo, deny_unknown_fields, deny_unknown_fields)]
+  |                          ^
+
+error: duplicate serde attribute `deny_unknown_fields`
+ --> tests/ui/invalid_attrs.rs:8:55
+  |
+8 | #[cog_schemars(default = 0, foo, deny_unknown_fields, deny_unknown_fields)]
+  |                                                       ^^^^^^^^^^^^^^^^^^^
+
+error: unknown cog_schemars attribute `foo`
+ --> tests/ui/invalid_attrs.rs:8:29
+  |
+8 | #[cog_schemars(default = 0, foo, deny_unknown_fields, deny_unknown_fields)]
+  |                             ^^^

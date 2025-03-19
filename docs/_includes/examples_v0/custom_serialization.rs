@@ -1,19 +1,19 @@
-use schemars::schema::{Schema, SchemaObject};
-use schemars::{gen::SchemaGenerator, schema_for, JsonSchema};
+use cog_schemars::schema::{Schema, SchemaObject};
+use cog_schemars::{gen::SchemaGenerator, schema_for, JsonSchema};
 use serde::{Deserialize, Serialize};
 
 // `int_as_string` and `bool_as_string` use the schema for `String`.
 #[derive(Default, Deserialize, Serialize, JsonSchema)]
 pub struct MyStruct {
     #[serde(default = "eight", with = "as_string")]
-    #[schemars(with = "String")]
+    #[cog_schemars(with = "String")]
     pub int_as_string: i32,
 
     #[serde(default = "eight")]
     pub int_normal: i32,
 
     #[serde(default, with = "as_string")]
-    #[schemars(schema_with = "make_custom_schema")]
+    #[cog_schemars(schema_with = "make_custom_schema")]
     pub bool_as_string: bool,
 
     #[serde(default)]

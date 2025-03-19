@@ -1,4 +1,4 @@
-use schemars::{schema_for, JsonSchema};
+use cog_schemars::{schema_for, JsonSchema};
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, JsonSchema)]

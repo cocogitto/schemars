@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euxo pipefail
 
-cd schemars
+cd cog_schemars
 
 rm -f tests/actual/*.json
 

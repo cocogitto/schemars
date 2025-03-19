@@ -1,0 +1,35 @@
+error: expected string literal
+ --> tests/ui/invalid_extend.rs:4:23
+  |
+4 | #[cog_schemars(extend(x))]
+  |                       ^
+
+error: expected `=`
+ --> tests/ui/invalid_extend.rs:5:26
+  |
+5 | #[cog_schemars(extend("x"))]
+  |                          ^
+
+error: Expected extension value
+ --> tests/ui/invalid_extend.rs:6:29
+  |
+6 | #[cog_schemars(extend("x" = ))]
+  |                             ^
+
+error: Duplicate extension key 'y'
+ --> tests/ui/invalid_extend.rs:7:36
+  |
+7 | #[cog_schemars(extend("y" = "ok!", "y" = "duplicated!"), extend("y" = "duplicated!"))]
+  |                                    ^^^
+
+error: Duplicate extension key 'y'
+ --> tests/ui/invalid_extend.rs:7:65
+  |
+7 | #[cog_schemars(extend("y" = "ok!", "y" = "duplicated!"), extend("y" = "duplicated!"))]
+  |                                                                 ^^^
+
+error: Duplicate extension key 'y'
+ --> tests/ui/invalid_extend.rs:8:23
+  |
+8 | #[cog_schemars(extend("y" = "duplicated!"))]
+  |                       ^^^

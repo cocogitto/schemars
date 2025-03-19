@@ -31,9 +31,9 @@ Schemars can implement `JsonSchema` on types from several popular crates, enable
 - `smol_str` - [smol_str](https://crates.io/crates/smol_str) (^0.1.17)
 - `semver` - [semver](https://crates.io/crates/semver) (^1.0.9)
 
-For example, to implement `JsonSchema` on types from `chrono`, enable it as a feature in the `schemars` dependency in your `Cargo.toml` like so:
+For example, to implement `JsonSchema` on types from `chrono`, enable it as a feature in the `cog_schemars` dependency in your `Cargo.toml` like so:
 
 ```toml
 [dependencies]
-schemars = { version = "0.8", features = ["chrono"] }
+cog_schemars = { version = "0.8", features = ["chrono"] }
 ```

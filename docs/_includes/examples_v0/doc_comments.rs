@@ -1,4 +1,4 @@
-use schemars::{schema_for, JsonSchema};
+use cog_schemars::{schema_for, JsonSchema};
 
 /// # My Amazing Struct
 /// This struct shows off generating a schema with
