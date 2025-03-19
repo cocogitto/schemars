@@ -1,7 +1,7 @@
 use crate::prelude::*;
 use std::collections::HashMap;
 
-use schemars::JsonSchema;
+use cocogitto_schemars::JsonSchema;
 use serde::{Deserialize, Serialize};
 
 #[derive(JsonSchema, Deserialize, Serialize)]

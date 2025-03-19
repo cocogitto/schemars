@@ -9,7 +9,7 @@ struct MyStruct {
     #[serde(skip_serializing_if = "str::is_empty")]
     string_skip_empty: String,
     #[serde(with = "struct_2_as_str")]
-    #[schemars(with = "str", pattern(r"^\d+ (true|false)$"))]
+    #[cocogitto_schemars(with = "str", pattern(r"^\d+ (true|false)$"))]
     struct2: MyStruct2,
     #[serde(skip_serializing)]
     not_serialize: NotSerialize,

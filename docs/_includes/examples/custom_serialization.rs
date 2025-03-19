@@ -1,18 +1,18 @@
-use schemars::{schema_for, JsonSchema, Schema, SchemaGenerator};
+use cocogitto_schemars::{schema_for, JsonSchema, Schema, SchemaGenerator};
 use serde::{Deserialize, Serialize};
 
 // `int_as_string` and `bool_as_string` use the schema for `String`.
 #[derive(Default, Deserialize, Serialize, JsonSchema)]
 pub struct MyStruct {
     #[serde(default = "eight", with = "as_string")]
-    #[schemars(with = "String")]
+    #[cocogitto_schemars(with = "String")]
     pub int_as_string: i32,
 
     #[serde(default = "eight")]
     pub int_normal: i32,
 
     #[serde(default, with = "as_string")]
-    #[schemars(schema_with = "make_custom_schema")]
+    #[cocogitto_schemars(schema_with = "make_custom_schema")]
     pub bool_as_string: bool,
 
     #[serde(default)]

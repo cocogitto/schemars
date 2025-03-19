@@ -143,7 +143,7 @@ impl SchemaSettings {
     ///
     /// # Example
     /// ```
-    /// use schemars::generate::{SchemaGenerator, SchemaSettings};
+    /// use cocogitto_schemars::generate::{SchemaGenerator, SchemaSettings};
     ///
     /// let settings = SchemaSettings::default().with(|s| {
     ///     s.option_nullable = true;
@@ -213,7 +213,7 @@ struct SchemaUid(CowStr, Contract);
 ///
 /// # Example
 /// ```
-/// use schemars::{JsonSchema, SchemaGenerator};
+/// use cocogitto_schemars::{JsonSchema, SchemaGenerator};
 ///
 /// #[derive(JsonSchema)]
 /// struct MyStruct {
@@ -263,7 +263,7 @@ impl SchemaGenerator {
     ///
     /// # Example
     /// ```
-    /// use schemars::SchemaGenerator;
+    /// use cocogitto_schemars::SchemaGenerator;
     ///
     /// let generator = SchemaGenerator::default();
     /// let settings = generator.settings();
@@ -599,14 +599,14 @@ fn json_pointer_mut<'a>(
 ///
 /// # Example
 /// ```
-/// use schemars::transform::Transform;
-/// use schemars::generate::GenTransform;
+/// use cocogitto_schemars::transform::Transform;
+/// use cocogitto_schemars::generate::GenTransform;
 ///
 /// #[derive(Debug, Clone)]
 /// struct MyTransform;
 ///
 /// impl Transform for MyTransform {
-///   fn transform(&mut self, schema: &mut schemars::Schema) {
+///   fn transform(&mut self, schema: &mut cocogitto_schemars::Schema) {
 ///     todo!()
 ///   }
 /// }
@@ -621,8 +621,8 @@ pub trait GenTransform: Transform + DynClone + Any + Send {
     /// # Example
     /// To remove a specific transform from an instance of `SchemaSettings`:
     /// ```
-    /// use schemars::generate::SchemaSettings;
-    /// use schemars::transform::ReplaceBoolSchemas;
+    /// use cocogitto_schemars::generate::SchemaSettings;
+    /// use cocogitto_schemars::transform::ReplaceBoolSchemas;
     ///
     /// let mut settings = SchemaSettings::openapi3();
     /// let original_len = settings.transforms.len();
@@ -641,8 +641,8 @@ pub trait GenTransform: Transform + DynClone + Any + Send {
     /// # Example
     /// To modify a specific transform in an instance of `SchemaSettings`:
     /// ```
-    /// use schemars::generate::SchemaSettings;
-    /// use schemars::transform::ReplaceBoolSchemas;
+    /// use cocogitto_schemars::generate::SchemaSettings;
+    /// use cocogitto_schemars::transform::ReplaceBoolSchemas;
     ///
     /// let mut settings = SchemaSettings::openapi3();
     /// for t in &mut settings.transforms {

@@ -13,8 +13,8 @@ To make a transform recursive (i.e. apply it to subschemas), you have two option
 To add a custom property to all object schemas:
 
 ```
-# use schemars::{Schema, json_schema};
-use schemars::transform::{Transform, transform_subschemas};
+# use cocogitto_schemars::{Schema, json_schema};
+use cocogitto_schemars::transform::{Transform, transform_subschemas};
 
 pub struct MyTransform;
 
@@ -49,8 +49,8 @@ assert_eq!(
 
 The same example with a `fn` transform:
 ```
-# use schemars::{Schema, json_schema};
-use schemars::transform::transform_subschemas;
+# use cocogitto_schemars::{Schema, json_schema};
+use cocogitto_schemars::transform::transform_subschemas;
 
 fn add_property(schema: &mut Schema) {
     schema.insert("my_property".to_string(), "hello world".into());
@@ -79,8 +79,8 @@ assert_eq!(
 
 And the same example using a closure wrapped in a `RecursiveTransform`:
 ```
-# use schemars::{Schema, json_schema};
-use schemars::transform::{Transform, RecursiveTransform};
+# use cocogitto_schemars::{Schema, json_schema};
+use cocogitto_schemars::transform::{Transform, RecursiveTransform};
 
 let mut transform = RecursiveTransform(|schema: &mut Schema| {
     schema.insert("my_property".to_string(), "hello world".into());
@@ -231,8 +231,8 @@ pub(crate) fn transform_immediate_subschemas<T: Transform + ?Sized>(
 ///
 /// # Example
 /// ```
-/// # use schemars::{Schema, json_schema};
-/// use schemars::transform::{Transform, RecursiveTransform};
+/// # use cocogitto_schemars::{Schema, json_schema};
+/// use cocogitto_schemars::transform::{Transform, RecursiveTransform};
 ///
 /// let mut transform = RecursiveTransform(|schema: &mut Schema| {
 ///     schema.insert("my_property".to_string(), "hello world".into());

@@ -1,4 +1,4 @@
-use schemars::{schema_for, JsonSchema_repr};
+use cocogitto_schemars::{schema_for, JsonSchema_repr};
 
 #[derive(JsonSchema_repr)]
 #[repr(u8)]

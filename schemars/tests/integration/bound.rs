@@ -14,7 +14,7 @@ impl Iterator for MyIterator {
 // The default trait bounds would require T to implement JsonSchema,
 // which MyIterator does not.
 #[derive(JsonSchema, Serialize, Deserialize)]
-#[schemars(bound = "T::Item: JsonSchema", rename = "MyContainer")]
+#[cocogitto_schemars(bound = "T::Item: JsonSchema", rename = "MyContainer")]
 pub struct MyContainer<T>
 where
     T: Iterator,

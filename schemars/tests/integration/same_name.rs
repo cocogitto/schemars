@@ -22,7 +22,7 @@ mod c {
     use super::*;
 
     #[derive(JsonSchema, Deserialize, Serialize, Default)]
-    #[schemars(rename = "Config")]
+    #[cocogitto_schemars(rename = "Config")]
     pub struct Configuration {
         test3: String,
     }

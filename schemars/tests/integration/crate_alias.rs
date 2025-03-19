@@ -1,13 +1,13 @@
 use crate::prelude::*;
-use ::schemars as aliased_schemars;
+use ::cocogitto_schemars as aliased_schemars;
 
 #[allow(dead_code)]
 #[derive(aliased_schemars::JsonSchema, Deserialize, Serialize, Default)]
-#[schemars(crate = "aliased_schemars")]
+#[cocogitto_schemars(crate = "aliased_schemars")]
 struct MyStruct {
     /// Is it ok with doc comments?
     foo: i32,
-    #[schemars(extend("x-test" = "...and extensions?"))]
+    #[cocogitto_schemars(extend("x-test" = "...and extensions?"))]
     bar: bool,
 }
 

@@ -6,7 +6,7 @@ struct SimpleStruct {
 }
 
 #[derive(JsonSchema, Deserialize, Serialize, Default)]
-#[schemars(rename = "new-name")]
+#[cocogitto_schemars(rename = "new-name")]
 struct RenamedSimpleStruct {
     foo: i32,
 }
@@ -29,7 +29,7 @@ struct TypeParams<T, U, V, W> {
 }
 
 #[derive(JsonSchema, Deserialize, Serialize, Default)]
-#[schemars(rename = "new-name-{W}-{T}-{T}")]
+#[cocogitto_schemars(rename = "new-name-{W}-{T}-{T}")]
 struct RenamedTypeParams<T, U, V, W> {
     t: T,
     u: U,
@@ -56,14 +56,14 @@ fn type_params() {
 
 #[derive(JsonSchema, Deserialize, Serialize, Default)]
 struct ConstGeneric<const INT: usize, const CHAR: char> {
-    #[schemars(range(max = INT))]
+    #[cocogitto_schemars(range(max = INT))]
     foo: i32,
 }
 
 #[derive(JsonSchema, Deserialize, Serialize, Default)]
-#[schemars(rename = "new-name-{INT}")]
+#[cocogitto_schemars(rename = "new-name-{INT}")]
 struct RenamedConstGeneric<const INT: usize, const CHAR: char> {
-    #[schemars(range(max = INT))]
+    #[cocogitto_schemars(range(max = INT))]
     foo: i32,
 }
 

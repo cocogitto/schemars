@@ -1,4 +1,4 @@
-use schemars::JsonSchema_repr;
+use cocogitto_schemars::JsonSchema_repr;
 
 #[derive(JsonSchema_repr)]
 pub enum Enum {

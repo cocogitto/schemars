@@ -1,4 +1,4 @@
-use schemars::{gen::SchemaSettings, JsonSchema};
+use cocogitto_schemars::{gen::SchemaSettings, JsonSchema};
 
 #[derive(JsonSchema)]
 pub struct MyStruct {

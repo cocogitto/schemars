@@ -25,10 +25,10 @@ enum External {
     Tuple(i32, bool),
     UnitTwo,
     #[serde(with = "unit_variant_as_u64")]
-    #[schemars(with = "u64")]
+    #[cocogitto_schemars(with = "u64")]
     UnitAsInt,
     #[serde(with = "tuple_variant_as_str")]
-    #[schemars(schema_with = "tuple_variant_as_str::json_schema")]
+    #[cocogitto_schemars(schema_with = "tuple_variant_as_str::json_schema")]
     TupleAsStr(i32, bool),
 }
 
@@ -71,11 +71,11 @@ enum Internal {
     UnitTwo,
     // Internally-tagged enum variants don't support non-object "payloads"
     //  #[serde(with = "unit_variant_as_u64")]
-    //  #[schemars(with = "u64")]
+    //  #[cocogitto_schemars(with = "u64")]
     //  UnitAsInt,
     // Internally-tagged enums don't support tuple variants
     //  #[serde(with = "tuple_variant_as_str")]
-    //  #[schemars(schema_with = "tuple_variant_as_str::json_schema")]
+    //  #[cocogitto_schemars(schema_with = "tuple_variant_as_str::json_schema")]
     //  TupleAsStr(i32, bool),
 }
 
@@ -119,10 +119,10 @@ enum Adjacent {
     Tuple(i32, bool),
     UnitTwo,
     #[serde(with = "unit_variant_as_u64")]
-    #[schemars(with = "u64")]
+    #[cocogitto_schemars(with = "u64")]
     UnitAsInt,
     #[serde(with = "tuple_variant_as_str")]
-    #[schemars(schema_with = "tuple_variant_as_str::json_schema")]
+    #[cocogitto_schemars(schema_with = "tuple_variant_as_str::json_schema")]
     TupleAsStr(i32, bool),
 }
 
@@ -166,10 +166,10 @@ enum Untagged {
     Tuple(i32, bool),
     UnitTwo,
     #[serde(with = "unit_variant_as_u64")]
-    #[schemars(with = "u64")]
+    #[cocogitto_schemars(with = "u64")]
     UnitAsInt,
     #[serde(with = "tuple_variant_as_str")]
-    #[schemars(schema_with = "tuple_variant_as_str::json_schema")]
+    #[cocogitto_schemars(schema_with = "tuple_variant_as_str::json_schema")]
     TupleAsStr(i32, bool),
 }
 
@@ -242,8 +242,8 @@ mod tuple_variant_as_str {
         ))
     }
 
-    pub(super) fn json_schema(_: &mut schemars::SchemaGenerator) -> schemars::Schema {
-        schemars::json_schema!({
+    pub(super) fn json_schema(_: &mut cocogitto_schemars::SchemaGenerator) -> cocogitto_schemars::Schema {
+        cocogitto_schemars::json_schema!({
             "type": "string",
             "pattern": r"^\d+ (true|false)$"
         })

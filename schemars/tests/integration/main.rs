@@ -57,7 +57,7 @@ mod map_with_eum_key;
 mod prelude {
     pub(crate) use crate::test;
     pub(crate) use crate::test_helper::{arbitrary_values, arbitrary_values_except};
-    pub(crate) use schemars::JsonSchema;
+    pub(crate) use cocogitto_schemars::JsonSchema;
     pub(crate) use serde::{Deserialize, Serialize};
     pub(crate) use serde_json::{json, Value};
 }
@@ -86,12 +86,12 @@ macro_rules! test {
         $crate::test_helper::TestHelper::<$type>::new($crate::test_name!(), $settings)
     };
     ($type:ty) => {
-        test!($type, schemars::generate::SchemaSettings::default())
+        test!($type, cocogitto_schemars::generate::SchemaSettings::default())
     };
     (value: $value:expr, $settings:expr) => {
         $crate::test_helper::TestHelper::new_for_value($crate::test_name!(), $settings, $value)
     };
     (value: $value:expr) => {
-        test!(value: $value, schemars::generate::SchemaSettings::default())
+        test!(value: $value, cocogitto_schemars::generate::SchemaSettings::default())
     };
 }

@@ -33,12 +33,12 @@ pub mod _private;
 pub mod generate;
 pub mod transform;
 
-#[cfg(feature = "schemars_derive")]
-extern crate schemars_derive;
+#[cfg(feature = "cocogitto-schemars_derive")]
+extern crate cocogitto_schemars_derive;
 use alloc::borrow::Cow;
 
-#[cfg(feature = "schemars_derive")]
-pub use schemars_derive::*;
+#[cfg(feature = "cocogitto-schemars_derive")]
+pub use cocogitto_schemars_derive::*;
 
 #[doc(inline)]
 pub use generate::SchemaGenerator;
@@ -53,14 +53,14 @@ mod _alloc_prelude {
     pub use alloc::vec::Vec;
 }
 
-#[deprecated = "Only included for backward-compatibility - use the `schemars::generate` module instead."]
+#[deprecated = "Only included for backward-compatibility - use the `cocogitto_schemars::generate` module instead."]
 #[doc(hidden)]
 pub mod r#gen {
-    #[deprecated = "Only included for backward-compatibility - use `schemars::SchemaGenerator` or `schemars::generate::SchemaGenerator` instead."]
+    #[deprecated = "Only included for backward-compatibility - use `cocogitto_schemars::SchemaGenerator` or `cocogitto_schemars::generate::SchemaGenerator` instead."]
     pub type SchemaGenerator = crate::generate::SchemaGenerator;
-    #[deprecated = "Only included for backward-compatibility - use `schemars::generate::SchemaSettings` instead."]
+    #[deprecated = "Only included for backward-compatibility - use `cocogitto_schemars::generate::SchemaSettings` instead."]
     pub type SchemaSettings = crate::generate::SchemaSettings;
-    #[deprecated = "Only included for backward-compatibility - use `schemars::generate::GenTransform` instead."]
+    #[deprecated = "Only included for backward-compatibility - use `cocogitto_schemars::generate::GenTransform` instead."]
     pub use crate::generate::GenTransform;
 }
 
@@ -75,7 +75,7 @@ pub mod r#gen {
 /// # Examples
 /// Deriving an implementation:
 /// ```
-/// use schemars::{schema_for, JsonSchema};
+/// use cocogitto_schemars::{schema_for, JsonSchema};
 ///
 /// #[derive(JsonSchema)]
 /// struct MyStruct {
@@ -89,7 +89,7 @@ pub mod r#gen {
 /// you will need to determine an appropriate name and ID for the type.
 /// For non-generic types, the type name/path are suitable for this:
 /// ```
-/// use schemars::{SchemaGenerator, Schema, JsonSchema, json_schema};
+/// use cocogitto_schemars::{SchemaGenerator, Schema, JsonSchema, json_schema};
 /// use std::borrow::Cow;
 ///
 /// struct NonGenericType;
@@ -118,7 +118,7 @@ pub mod r#gen {
 /// But generic type parameters which may affect the generated schema should typically be included
 /// in the name/ID:
 /// ```
-/// use schemars::{SchemaGenerator, Schema, JsonSchema, json_schema};
+/// use cocogitto_schemars::{SchemaGenerator, Schema, JsonSchema, json_schema};
 /// use std::{borrow::Cow, marker::PhantomData};
 ///
 /// struct GenericType<T>(PhantomData<T>);

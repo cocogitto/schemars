@@ -94,17 +94,17 @@ pub fn expr_for_repr(cont: &Container) -> Result<SchemaExpr, syn::Error> {
     let variant_idents = variants.iter().map(|v| &v.ident);
 
     let mut schema_expr = SchemaExpr::from(quote!({
-        let mut map = schemars::_private::serde_json::Map::new();
+        let mut map = cocogitto_schemars::_private::serde_json::Map::new();
         map.insert("type".into(), "integer".into());
         map.insert(
             "enum".into(),
-            schemars::_private::serde_json::Value::Array({
-                let mut enum_values = schemars::_private::alloc::vec::Vec::new();
+            cocogitto_schemars::_private::serde_json::Value::Array({
+                let mut enum_values = cocogitto_schemars::_private::alloc::vec::Vec::new();
                 #(enum_values.push((#enum_ident::#variant_idents as #repr_type).into());)*
                 enum_values
             }),
         );
-        schemars::Schema::from(map)
+        cocogitto_schemars::Schema::from(map)
     }));
 
     cont.add_mutators(&mut schema_expr.mutators);
@@ -118,11 +118,11 @@ fn expr_for_field(field: &Field, is_internal_tagged_enum_newtype: bool) -> Schem
 
     let schema_expr = if field.attrs.validation.required {
         quote_spanned! {span=>
-            <#ty as schemars::JsonSchema>::_schemars_private_non_optional_json_schema(#GENERATOR)
+            <#ty as cocogitto_schemars::JsonSchema>::_schemars_private_non_optional_json_schema(#GENERATOR)
         }
     } else if is_internal_tagged_enum_newtype {
         quote_spanned! {span=>
-            schemars::_private::json_schema_for_internally_tagged_enum_newtype_variant::<#ty>(#GENERATOR)
+            cocogitto_schemars::_private::json_schema_for_internally_tagged_enum_newtype_variant::<#ty>(#GENERATOR)
         }
     } else {
         quote_spanned! {span=>
@@ -154,17 +154,17 @@ fn type_for_schema(with_attr: &WithAttr) -> (syn::Type, Option<TokenStream>) {
             let type_def = quote_spanned! {fun.span()=>
                 struct #ty_name;
 
-                impl schemars::JsonSchema for #ty_name {
+                impl cocogitto_schemars::JsonSchema for #ty_name {
                     fn always_inline_schema() -> bool {
                         true
                     }
 
-                    fn schema_name() -> schemars::_private::alloc::borrow::Cow<'static, str> {
-                        schemars::_private::alloc::borrow::Cow::Borrowed(#fn_name)
+                    fn schema_name() -> cocogitto_schemars::_private::alloc::borrow::Cow<'static, str> {
+                        cocogitto_schemars::_private::alloc::borrow::Cow::Borrowed(#fn_name)
                     }
 
-                    fn schema_id() -> schemars::_private::alloc::borrow::Cow<'static, str> {
-                        schemars::_private::alloc::borrow::Cow::Borrowed(::core::concat!(
+                    fn schema_id() -> cocogitto_schemars::_private::alloc::borrow::Cow<'static, str> {
+                        cocogitto_schemars::_private::alloc::borrow::Cow::Borrowed(::core::concat!(
                             "_SchemarsSchemaWithFunction/",
                             ::core::module_path!(),
                             "/",
@@ -172,7 +172,7 @@ fn type_for_schema(with_attr: &WithAttr) -> (syn::Type, Option<TokenStream>) {
                         ))
                     }
 
-                    fn json_schema(generator: &mut schemars::SchemaGenerator) -> schemars::Schema {
+                    fn json_schema(generator: &mut cocogitto_schemars::SchemaGenerator) -> cocogitto_schemars::Schema {
                         #fun(generator)
                     }
                 }
@@ -185,7 +185,7 @@ fn type_for_schema(with_attr: &WithAttr) -> (syn::Type, Option<TokenStream>) {
 
 fn expr_for_enum(variants: &[Variant], cattrs: &serde_attr::Container) -> SchemaExpr {
     if variants.is_empty() {
-        return quote!(schemars::Schema::from(false)).into();
+        return quote!(cocogitto_schemars::Schema::from(false)).into();
     }
     let deny_unknown_fields = cattrs.deny_unknown_fields();
     let variants = variants.iter();
@@ -215,17 +215,17 @@ fn expr_for_external_tagged_enum<'a>(
         })
     });
     let unit_schema = SchemaExpr::from(quote!({
-        let mut map = schemars::_private::serde_json::Map::new();
+        let mut map = cocogitto_schemars::_private::serde_json::Map::new();
         map.insert("type".into(), "string".into());
         map.insert(
             "enum".into(),
-            schemars::_private::serde_json::Value::Array({
-                let mut enum_values = schemars::_private::alloc::vec::Vec::new();
+            cocogitto_schemars::_private::serde_json::Value::Array({
+                let mut enum_values = cocogitto_schemars::_private::alloc::vec::Vec::new();
                 #(#add_unit_names)*
                 enum_values
             }),
         );
-        schemars::Schema::from(map)
+        cocogitto_schemars::Schema::from(map)
     }));
 
     if complex_variants.is_empty() {
@@ -243,12 +243,12 @@ fn expr_for_external_tagged_enum<'a>(
         let mut schema_expr =
             SchemaExpr::from(if variant.is_unit() && variant.attrs.with.is_none() {
                 quote! {
-                    schemars::_private::new_unit_enum_variant(#name)
+                    cocogitto_schemars::_private::new_unit_enum_variant(#name)
                 }
             } else {
                 let sub_schema = expr_for_untagged_enum_variant(variant, deny_unknown_fields);
                 quote! {
-                    schemars::_private::new_externally_tagged_enum_variant(#name, #sub_schema)
+                    cocogitto_schemars::_private::new_externally_tagged_enum_variant(#name, #sub_schema)
                 }
             });
 
@@ -272,7 +272,7 @@ fn expr_for_internal_tagged_enum<'a>(
 
             let name = variant.name();
             schema_expr.mutators.push(quote!(
-                schemars::_private::apply_internal_enum_variant_tag(&mut #SCHEMA, #tag_name, #name, #deny_unknown_fields);
+                cocogitto_schemars::_private::apply_internal_enum_variant_tag(&mut #SCHEMA, #tag_name, #name, #deny_unknown_fields);
             ));
 
             variant.add_mutators(&mut schema_expr.mutators);
@@ -328,7 +328,7 @@ fn expr_for_adjacent_tagged_enum<'a>(
 
             let name = variant.name();
             let tag_schema = quote! {
-                schemars::json_schema!({
+                cocogitto_schemars::json_schema!({
                     "type": "string",
                     "const": #name,
                 })
@@ -342,7 +342,7 @@ fn expr_for_adjacent_tagged_enum<'a>(
                 TokenStream::new()
             };
 
-            let mut outer_schema = SchemaExpr::from(quote!(schemars::json_schema!({
+            let mut outer_schema = SchemaExpr::from(quote!(cocogitto_schemars::json_schema!({
                 "type": "object",
                 "properties": {
                     #tag_name: (#tag_schema),
@@ -380,16 +380,16 @@ fn variant_subschemas(unique: bool, schemas: Vec<(Option<&Variant>, SchemaExpr)>
         }
     });
     quote!({
-        let mut map = schemars::_private::serde_json::Map::new();
+        let mut map = cocogitto_schemars::_private::serde_json::Map::new();
         map.insert(
             #keyword.into(),
-            schemars::_private::serde_json::Value::Array({
-                let mut enum_values = schemars::_private::alloc::vec::Vec::new();
+            cocogitto_schemars::_private::serde_json::Value::Array({
+                let mut enum_values = cocogitto_schemars::_private::alloc::vec::Vec::new();
                 #(#add_schemas)*
                 enum_values
             }),
         );
-        schemars::Schema::from(map)
+        cocogitto_schemars::Schema::from(map)
     })
     .into()
 }
@@ -421,7 +421,7 @@ fn expr_for_internal_tagged_enum_variant(
     if let Some(with_attr) = &variant.attrs.with {
         let (ty, type_def) = type_for_schema(with_attr);
         let mut schema_expr = SchemaExpr::from(quote_spanned! {variant.original.span()=>
-            <#ty as schemars::JsonSchema>::json_schema(#GENERATOR)
+            <#ty as cocogitto_schemars::JsonSchema>::json_schema(#GENERATOR)
         });
 
         schema_expr.definitions.extend(type_def);
@@ -460,17 +460,17 @@ fn expr_for_tuple_struct(fields: &[Field]) -> SchemaExpr {
         .collect();
 
     quote!({
-        let mut prefix_items = schemars::_private::alloc::vec::Vec::new();
+        let mut prefix_items = cocogitto_schemars::_private::alloc::vec::Vec::new();
         #(#fields)*
-        let len = schemars::_private::serde_json::Value::from(prefix_items.len());
+        let len = cocogitto_schemars::_private::serde_json::Value::from(prefix_items.len());
 
-        let mut map = schemars::_private::serde_json::Map::new();
+        let mut map = cocogitto_schemars::_private::serde_json::Map::new();
         map.insert("type".into(), "array".into());
         map.insert("prefixItems".into(), prefix_items.into());
         map.insert("minItems".into(), len.clone());
         map.insert("maxItems".into(), len);
 
-        schemars::Schema::from(map)
+        cocogitto_schemars::Schema::from(map)
     })
     .into()
 }
@@ -496,13 +496,13 @@ fn expr_for_struct(
 
                 let required = field.attrs.validation.required;
                 let mut schema_expr = SchemaExpr::from(quote_spanned! {ty.span()=>
-                    schemars::_private::json_schema_for_flatten::<#ty>(#GENERATOR, #required)
+                    cocogitto_schemars::_private::json_schema_for_flatten::<#ty>(#GENERATOR, #required)
                 });
 
                 schema_expr.definitions.extend(type_def);
 
                 field.with_contract_check(quote! {
-                    schemars::_private::flatten(&mut #SCHEMA, #schema_expr);
+                    cocogitto_schemars::_private::flatten(&mut #SCHEMA, #schema_expr);
                 })
             } else {
                 let name = field.name();
@@ -518,13 +518,13 @@ fn expr_for_struct(
                     quote!(if #GENERATOR.contract().is_serialize() {
                         #has_skip_serialize_if
                     } else {
-                        #has_default || (!#required_attr && <#ty as schemars::JsonSchema>::_schemars_private_is_option())
+                        #has_default || (!#required_attr && <#ty as cocogitto_schemars::JsonSchema>::_schemars_private_is_option())
                     })
                 };
 
                 let mut schema_expr = SchemaExpr::from(if field.attrs.validation.required {
                     quote_spanned! {ty.span()=>
-                        <#ty as schemars::JsonSchema>::_schemars_private_non_optional_json_schema(#GENERATOR)
+                        <#ty as cocogitto_schemars::JsonSchema>::_schemars_private_non_optional_json_schema(#GENERATOR)
                     }
                 } else {
                     quote_spanned! {ty.span()=>
@@ -535,8 +535,8 @@ fn expr_for_struct(
                 field.add_mutators(&mut schema_expr.mutators);
                 if let Some(default) = field_default_expr(field, set_container_default.is_some()) {
                     schema_expr.mutators.push(quote! {
-                        #default.and_then(|d| schemars::_schemars_maybe_to_value!(d))
-                            .map(|d| schemars::_private::insert_metadata_property(&mut #SCHEMA, "default", d));
+                        #default.and_then(|d| cocogitto_schemars::_schemars_maybe_to_value!(d))
+                            .map(|d| cocogitto_schemars::_private::insert_metadata_property(&mut #SCHEMA, "default", d));
                     })
                 }
 
@@ -544,7 +544,7 @@ fn expr_for_struct(
                 // in `#is_optional` (`#type_def` is the definition of `#ty`)
                 field.with_contract_check(quote!({
                     #type_def
-                    schemars::_private::insert_object_property(&mut #SCHEMA, #name, #is_optional, #schema_expr);
+                    cocogitto_schemars::_private::insert_object_property(&mut #SCHEMA, #name, #is_optional, #schema_expr);
                 }))
             }
             })
@@ -560,7 +560,7 @@ fn expr_for_struct(
 
     SchemaExpr {
         definitions: set_container_default.into_iter().collect(),
-        creator: quote!(schemars::json_schema!({
+        creator: quote!(cocogitto_schemars::json_schema!({
             "type": "object",
             #set_additional_properties
         })),

@@ -95,8 +95,8 @@ impl CommonAttrs {
                             cx.error_spanned_by(&expr, format_args!(
                                 "`example` value must be an expression, and string literals that may be interpreted as function paths are currently disallowed to avoid migration errors \
                                  (this restriction may be relaxed in a future version of schemars).\n\
-                                If you want to use the result of a function, use `#[schemars(example = {lit_str_value}())]`.\n\
-                                Or to use the string literal value, use `#[schemars(example = &\"{lit_str_value}\")]`."));
+                                If you want to use the result of a function, use `#[cocogitto_schemars(example = {lit_str_value}())]`.\n\
+                                Or to use the string literal value, use `#[cocogitto_schemars(example = &\"{lit_str_value}\")]`."));
                         }
                     }
 
@@ -131,7 +131,7 @@ impl CommonAttrs {
                             cx.error_spanned_by(
                                 &expr,
                                 format_args!(
-                                    "Expected a `fn(&mut Schema)` or other value implementing `schemars::transform::Transform`, found `&str`.\nDid you mean `#[schemars(transform = {})]`?",
+                                    "Expected a `fn(&mut Schema)` or other value implementing `cocogitto_schemars::transform::Transform`, found `&str`.\nDid you mean `#[cocogitto_schemars(transform = {})]`?",
                                     lit_str.value()
                                 ),
                             )
@@ -169,7 +169,7 @@ impl CommonAttrs {
         if let Some(doc) = &self.doc {
             if title.is_none() || description.is_none() {
                 mutators.push(quote!{
-                    const title_and_description: (&str, &str) = schemars::_private::get_title_and_description(#doc);
+                    const title_and_description: (&str, &str) = cocogitto_schemars::_private::get_title_and_description(#doc);
                 });
                 title.get_or_insert_with(|| quote!(title_and_description.0));
                 description.get_or_insert_with(|| quote!(title_and_description.1));
@@ -177,41 +177,41 @@ impl CommonAttrs {
         }
         if let Some(title) = title {
             mutators.push(quote! {
-                schemars::_private::insert_metadata_property_if_nonempty(&mut #SCHEMA, "title", #title);
+                cocogitto_schemars::_private::insert_metadata_property_if_nonempty(&mut #SCHEMA, "title", #title);
             });
         }
         if let Some(description) = description {
             mutators.push(quote! {
-                schemars::_private::insert_metadata_property_if_nonempty(&mut #SCHEMA, "description", #description);
+                cocogitto_schemars::_private::insert_metadata_property_if_nonempty(&mut #SCHEMA, "description", #description);
             });
         }
 
         if self.deprecated {
             mutators.push(quote! {
-                schemars::_private::insert_metadata_property(&mut #SCHEMA, "deprecated", true);
+                cocogitto_schemars::_private::insert_metadata_property(&mut #SCHEMA, "deprecated", true);
             });
         }
 
         if !self.examples.is_empty() {
             let examples = self.examples.iter().map(|eg| {
                 quote! {
-                    schemars::_private::serde_json::value::to_value(#eg)
+                    cocogitto_schemars::_private::serde_json::value::to_value(#eg)
                 }
             });
             mutators.push(quote! {
-                schemars::_private::insert_metadata_property(&mut #SCHEMA, "examples", schemars::_private::serde_json::Value::Array([#(#examples),*].into_iter().flatten().collect()));
+                cocogitto_schemars::_private::insert_metadata_property(&mut #SCHEMA, "examples", cocogitto_schemars::_private::serde_json::Value::Array([#(#examples),*].into_iter().flatten().collect()));
             });
         }
 
         for (k, v) in &self.extensions {
             mutators.push(quote! {
-                schemars::_private::insert_metadata_property(&mut #SCHEMA, #k, schemars::_private::serde_json::json!(#v));
+                cocogitto_schemars::_private::insert_metadata_property(&mut #SCHEMA, #k, cocogitto_schemars::_private::serde_json::json!(#v));
             });
         }
 
         for transform in &self.transforms {
             mutators.push(quote! {
-                schemars::transform::Transform::transform(&mut #transform, &mut #SCHEMA);
+                cocogitto_schemars::transform::Transform::transform(&mut #transform, &mut #SCHEMA);
             });
         }
     }

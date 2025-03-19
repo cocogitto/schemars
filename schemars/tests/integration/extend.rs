@@ -6,12 +6,12 @@ static THREE: f64 = 3.0;
 
 #[allow(dead_code)]
 #[derive(JsonSchema)]
-#[schemars(extend("obj" = {"array": [null, ()]}))]
-#[schemars(extend("3" = THREE), extend("pi" = THREE + 0.14))]
+#[cocogitto_schemars(extend("obj" = {"array": [null, ()]}))]
+#[cocogitto_schemars(extend("3" = THREE), extend("pi" = THREE + 0.14))]
 struct Struct {
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     value: Value,
-    #[schemars(extend("type" = ["number", "string"]))]
+    #[cocogitto_schemars(extend("type" = ["number", "string"]))]
     int: i32,
 }
 
@@ -34,11 +34,11 @@ fn extend_struct() {
 
 #[allow(dead_code)]
 #[derive(JsonSchema)]
-#[schemars(extend("obj" = {"array": [null, ()]}))]
-#[schemars(extend("3" = THREE), extend("pi" = THREE + 0.14))]
+#[cocogitto_schemars(extend("obj" = {"array": [null, ()]}))]
+#[cocogitto_schemars(extend("3" = THREE), extend("pi" = THREE + 0.14))]
 struct TupleStruct(
-    #[schemars(extend("foo" = "bar"))] Value,
-    #[schemars(extend("type" = ["number", "string"]))] usize,
+    #[cocogitto_schemars(extend("foo" = "bar"))] Value,
+    #[cocogitto_schemars(extend("type" = ["number", "string"]))] usize,
 );
 
 #[test]
@@ -60,15 +60,15 @@ fn extend_tuple_struct() {
 
 #[allow(dead_code)]
 #[derive(JsonSchema)]
-#[schemars(extend("foo" = "bar"))]
+#[cocogitto_schemars(extend("foo" = "bar"))]
 enum ExternalEnum {
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     Unit,
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     NewType(Value),
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     Tuple(i32, bool),
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     Struct { i: i32, b: bool },
 }
 
@@ -88,13 +88,13 @@ fn extend_externally_tagged_enum() {
 
 #[allow(dead_code)]
 #[derive(JsonSchema)]
-#[schemars(tag = "t", extend("foo" = "bar"))]
+#[cocogitto_schemars(tag = "t", extend("foo" = "bar"))]
 enum InternalEnum {
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     Unit,
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     NewType(Value),
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     Struct { i: i32, b: bool },
 }
 
@@ -114,15 +114,15 @@ fn extend_internally_tagged_enum() {
 
 #[allow(dead_code)]
 #[derive(JsonSchema)]
-#[schemars(tag = "t", content = "c", extend("foo" = "bar"))]
+#[cocogitto_schemars(tag = "t", content = "c", extend("foo" = "bar"))]
 enum AdjacentEnum {
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     Unit,
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     NewType(Value),
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     Tuple(i32, bool),
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     Struct { i: i32, b: bool },
 }
 
@@ -142,15 +142,15 @@ fn extend_adjacently_tagged_enum() {
 
 #[allow(dead_code)]
 #[derive(JsonSchema)]
-#[schemars(untagged, extend("foo" = "bar"))]
+#[cocogitto_schemars(untagged, extend("foo" = "bar"))]
 enum UntaggedEnum {
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     Unit,
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     NewType(Value),
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     Tuple(i32, bool),
-    #[schemars(extend("foo" = "bar"))]
+    #[cocogitto_schemars(extend("foo" = "bar"))]
     Struct { i: i32, b: bool },
 }
 

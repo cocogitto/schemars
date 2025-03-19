@@ -1,12 +1,12 @@
-use schemars::JsonSchema;
+use cocogitto_schemars::JsonSchema;
 
 #[derive(JsonSchema)]
 #[validate(email)]
 pub struct Struct1(#[validate(regex, foo, length(min = 1, equal = 2, bar))] String);
 
 #[derive(JsonSchema)]
-#[schemars(email)]
-pub struct Struct2(#[schemars(regex, foo, length(min = 1, equal = 2, bar))] String);
+#[cocogitto_schemars(email)]
+pub struct Struct2(#[cocogitto_schemars(regex, foo, length(min = 1, equal = 2, bar))] String);
 
 #[derive(JsonSchema)]
 pub struct Struct3(
@@ -24,7 +24,7 @@ pub struct Struct3(
 
 #[derive(JsonSchema)]
 pub struct Struct4(
-    #[schemars(
+    #[cocogitto_schemars(
         regex = "foo",
         contains = "bar",
         regex(path = "baz"),

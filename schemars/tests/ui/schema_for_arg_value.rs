@@ -1,4 +1,4 @@
-use schemars::schema_for;
+use cocogitto_schemars::schema_for;
 
 fn main() {
     let _schema = schema_for!(123);

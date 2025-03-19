@@ -172,6 +172,48 @@ dependencies = [
 ]
 
 [[package]]
+name = "cocogitto-schemars"
+version = "1.0.0-alpha.17"
+dependencies = [
+ "arrayvec",
+ "bigdecimal",
+ "bytes",
+ "chrono",
+ "cocogitto-schemars_derive",
+ "dyn-clone",
+ "either",
+ "garde",
+ "indexmap",
+ "jsonschema",
+ "pretty_assertions",
+ "ref-cast",
+ "regex",
+ "rust_decimal",
+ "semver",
+ "serde",
+ "serde_json",
+ "serde_repr",
+ "smallvec",
+ "smol_str",
+ "snapbox",
+ "trybuild",
+ "url",
+ "uuid",
+ "validator",
+]
+
+[[package]]
+name = "cocogitto-schemars_derive"
+version = "1.0.0-alpha.17"
+dependencies = [
+ "pretty_assertions",
+ "proc-macro2",
+ "quote",
+ "serde_derive_internals",
+ "syn",
+]
+
+[[package]]
 name = "colorchoice"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -828,48 +870,6 @@ name = "ryu"
 version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f3cb5ba0dc43242ce17de99c180e96db90b235b8a9fdc9543c96d2209116bd9f"
-
-[[package]]
-name = "schemars"
-version = "1.0.0-alpha.17"
-dependencies = [
- "arrayvec",
- "bigdecimal",
- "bytes",
- "chrono",
- "dyn-clone",
- "either",
- "garde",
- "indexmap",
- "jsonschema",
- "pretty_assertions",
- "ref-cast",
- "regex",
- "rust_decimal",
- "schemars_derive",
- "semver",
- "serde",
- "serde_json",
- "serde_repr",
- "smallvec",
- "smol_str",
- "snapbox",
- "trybuild",
- "url",
- "uuid",
- "validator",
-]
-
-[[package]]
-name = "schemars_derive"
-version = "1.0.0-alpha.17"
-dependencies = [
- "pretty_assertions",
- "proc-macro2",
- "quote",
- "serde_derive_internals",
- "syn",
-]
 
 [[package]]
 name = "semver"

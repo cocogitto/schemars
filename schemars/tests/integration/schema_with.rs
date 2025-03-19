@@ -3,7 +3,7 @@ use crate::prelude::*;
 #[derive(JsonSchema, Deserialize, Serialize, Default)]
 struct Struct {
     #[serde(with = "int_as_str")]
-    #[schemars(schema_with = "int_as_str::json_schema")]
+    #[cocogitto_schemars(schema_with = "int_as_str::json_schema")]
     x: i64,
 }
 
@@ -26,8 +26,8 @@ mod int_as_str {
             .map_err(serde::de::Error::custom)
     }
 
-    pub(super) fn json_schema(_: &mut schemars::SchemaGenerator) -> schemars::Schema {
-        schemars::json_schema!({
+    pub(super) fn json_schema(_: &mut cocogitto_schemars::SchemaGenerator) -> cocogitto_schemars::Schema {
+        cocogitto_schemars::json_schema!({
             "type": "string",
             "pattern": r"^-?\d+$"
         })

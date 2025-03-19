@@ -97,27 +97,27 @@ fn validate_attrs() {
 
 #[allow(dead_code)]
 #[derive(JsonSchema)]
-#[schemars(rename = "ValidateAttrStruct")]
+#[cocogitto_schemars(rename = "ValidateAttrStruct")]
 pub struct SchemarsAttrStruct {
-    #[schemars(range(min = 1.0, max = 100.0))]
+    #[cocogitto_schemars(range(min = 1.0, max = 100.0))]
     min_max: f32,
-    #[schemars(range(min = ONE, max = HUNDRED))]
+    #[cocogitto_schemars(range(min = ONE, max = HUNDRED))]
     min_max2: f32,
-    #[schemars(regex(pattern = hello_regex()))]
+    #[cocogitto_schemars(regex(pattern = hello_regex()))]
     regex_str: String,
-    #[schemars(contains(pattern = "substring..."))]
+    #[cocogitto_schemars(contains(pattern = "substring..."))]
     contains_str: String,
-    #[schemars(email)]
+    #[cocogitto_schemars(email)]
     email_address: String,
-    #[schemars(url)]
+    #[cocogitto_schemars(url)]
     homepage: String,
-    #[schemars(length(min = 1, max = 100))]
+    #[cocogitto_schemars(length(min = 1, max = 100))]
     non_empty_str: String,
-    #[schemars(length(equal = 2))]
+    #[cocogitto_schemars(length(equal = 2))]
     pair: Vec<String>,
-    #[schemars(required)]
+    #[cocogitto_schemars(required)]
     required_option: Option<bool>,
-    #[schemars(required)]
+    #[cocogitto_schemars(required)]
     #[serde(flatten)]
     required_flattened: Option<SchemarsAttrInner>,
 }
@@ -125,7 +125,7 @@ pub struct SchemarsAttrStruct {
 #[allow(dead_code)]
 #[derive(JsonSchema)]
 pub struct SchemarsAttrInner {
-    #[schemars(range(min = -100, max = 100))]
+    #[cocogitto_schemars(range(min = -100, max = 100))]
     x: i32,
 }
 

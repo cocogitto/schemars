@@ -1,4 +1,4 @@
-use schemars::{generate::SchemaSettings, JsonSchema};
+use cocogitto_schemars::{generate::SchemaSettings, JsonSchema};
 use serde::{Deserialize, Serialize};
 
 #[derive(JsonSchema, Deserialize, Serialize)]

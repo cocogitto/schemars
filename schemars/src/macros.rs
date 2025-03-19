@@ -5,7 +5,7 @@
 ///
 /// # Example
 /// ```
-/// use schemars::{schema_for, JsonSchema};
+/// use cocogitto_schemars::{schema_for, JsonSchema};
 ///
 /// #[derive(JsonSchema)]
 /// struct MyStruct {
@@ -29,7 +29,7 @@ macro_rules! schema_for {
 ///
 /// # Example
 /// ```
-/// use schemars::{schema_for, JsonSchema};
+/// use cocogitto_schemars::{schema_for, JsonSchema};
 ///
 /// #[derive(JsonSchema)]
 /// struct MyStruct {
@@ -63,7 +63,7 @@ macro_rules! schema_for {
 ///
 /// # Example
 /// ```
-/// use schemars::schema_for_value;
+/// use cocogitto_schemars::schema_for_value;
 ///
 /// #[derive(serde::Serialize)]
 /// struct MyStruct {
@@ -89,7 +89,7 @@ macro_rules! schema_for_value {
 ///
 /// # Example
 /// ```
-/// use schemars::{Schema, json_schema};
+/// use cocogitto_schemars::{Schema, json_schema};
 ///
 /// let desc = "A helpful description.";
 /// let my_schema: Schema = json_schema!({

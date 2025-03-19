@@ -18,7 +18,7 @@ use syn::spanned::Spanned;
 
 #[doc = "Derive macro for `JsonSchema` trait."]
 #[cfg_attr(not(doctest), doc = include_str!("../deriving.md"), doc = include_str!("../attributes.md"))]
-#[proc_macro_derive(JsonSchema, attributes(schemars, serde, validate, garde))]
+#[proc_macro_derive(JsonSchema, attributes(cocogitto_schemars, serde, validate, garde))]
 pub fn derive_json_schema_wrapper(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as syn::DeriveInput);
     derive_json_schema(input, false)
@@ -26,7 +26,7 @@ pub fn derive_json_schema_wrapper(input: proc_macro::TokenStream) -> proc_macro:
         .into()
 }
 
-#[proc_macro_derive(JsonSchema_repr, attributes(schemars, serde))]
+#[proc_macro_derive(JsonSchema_repr, attributes(cocogitto_schemars, serde))]
 pub fn derive_json_schema_repr_wrapper(input: proc_macro::TokenStream) -> proc_macro::TokenStream {
     let input = parse_macro_input!(input as syn::DeriveInput);
     derive_json_schema(input, true)
@@ -42,7 +42,7 @@ fn derive_json_schema(mut input: syn::DeriveInput, repr: bool) -> syn::Result<To
 
     let crate_alias = cont.attrs.crate_name.as_ref().map(|path| {
         quote_spanned! {path.span()=>
-            use #path as schemars;
+            use #path as cocogitto_schemars;
         }
     });
 
@@ -57,29 +57,29 @@ fn derive_json_schema(mut input: syn::DeriveInput, repr: bool) -> syn::Result<To
                 #type_def
 
                 #[automatically_derived]
-                impl #impl_generics schemars::JsonSchema for #type_name #ty_generics #where_clause {
+                impl #impl_generics cocogitto_schemars::JsonSchema for #type_name #ty_generics #where_clause {
                     fn always_inline_schema() -> bool {
-                        <#ty as schemars::JsonSchema>::always_inline_schema()
+                        <#ty as cocogitto_schemars::JsonSchema>::always_inline_schema()
                     }
 
-                    fn schema_name() -> schemars::_private::alloc::borrow::Cow<'static, str> {
-                        <#ty as schemars::JsonSchema>::schema_name()
+                    fn schema_name() -> cocogitto_schemars::_private::alloc::borrow::Cow<'static, str> {
+                        <#ty as cocogitto_schemars::JsonSchema>::schema_name()
                     }
 
-                    fn schema_id() -> schemars::_private::alloc::borrow::Cow<'static, str> {
-                        <#ty as schemars::JsonSchema>::schema_id()
+                    fn schema_id() -> cocogitto_schemars::_private::alloc::borrow::Cow<'static, str> {
+                        <#ty as cocogitto_schemars::JsonSchema>::schema_id()
                     }
 
-                    fn json_schema(#GENERATOR: &mut schemars::SchemaGenerator) -> schemars::Schema {
-                        <#ty as schemars::JsonSchema>::json_schema(#GENERATOR)
+                    fn json_schema(#GENERATOR: &mut cocogitto_schemars::SchemaGenerator) -> cocogitto_schemars::Schema {
+                        <#ty as cocogitto_schemars::JsonSchema>::json_schema(#GENERATOR)
                     }
 
-                    fn _schemars_private_non_optional_json_schema(#GENERATOR: &mut schemars::SchemaGenerator) -> schemars::Schema {
-                        <#ty as schemars::JsonSchema>::_schemars_private_non_optional_json_schema(#GENERATOR)
+                    fn _schemars_private_non_optional_json_schema(#GENERATOR: &mut cocogitto_schemars::SchemaGenerator) -> cocogitto_schemars::Schema {
+                        <#ty as cocogitto_schemars::JsonSchema>::_schemars_private_non_optional_json_schema(#GENERATOR)
                     }
 
                     fn _schemars_private_is_option() -> bool {
-                        <#ty as schemars::JsonSchema>::_schemars_private_is_option()
+                        <#ty as cocogitto_schemars::JsonSchema>::_schemars_private_is_option()
                     }
                 };
             };
@@ -108,10 +108,10 @@ fn derive_json_schema(mut input: syn::DeriveInput, repr: bool) -> syn::Result<To
     {
         (
             quote! {
-                schemars::_private::alloc::borrow::Cow::Borrowed(#schema_base_name)
+                cocogitto_schemars::_private::alloc::borrow::Cow::Borrowed(#schema_base_name)
             },
             quote! {
-                schemars::_private::alloc::borrow::Cow::Borrowed(::core::concat!(
+                cocogitto_schemars::_private::alloc::borrow::Cow::Borrowed(::core::concat!(
                     ::core::module_path!(),
                     "::",
                     #schema_base_name
@@ -125,16 +125,16 @@ fn derive_json_schema(mut input: syn::DeriveInput, repr: bool) -> syn::Result<To
         }
         (
             quote! {
-                schemars::_private::alloc::borrow::Cow::Owned(
-                    schemars::_private::alloc::format!(
+                cocogitto_schemars::_private::alloc::borrow::Cow::Owned(
+                    cocogitto_schemars::_private::alloc::format!(
                         #schema_name_fmt
                         #(,#type_params=#type_params::schema_name())*
-                        #(,#const_params=schemars::_private::alloc::string::ToString::to_string(&#const_params))*)
+                        #(,#const_params=cocogitto_schemars::_private::alloc::string::ToString::to_string(&#const_params))*)
                 )
             },
             quote! {
-                schemars::_private::alloc::borrow::Cow::Owned(
-                    schemars::_private::alloc::format!(
+                cocogitto_schemars::_private::alloc::borrow::Cow::Owned(
+                    cocogitto_schemars::_private::alloc::format!(
                         ::core::concat!(
                             ::core::module_path!(),
                             "::",
@@ -152,13 +152,13 @@ fn derive_json_schema(mut input: syn::DeriveInput, repr: bool) -> syn::Result<To
         schema_name_fmt.push_str(&"_and_{}".repeat(params.len() - 1));
         (
             quote! {
-                schemars::_private::alloc::borrow::Cow::Owned(
-                    schemars::_private::alloc::format!(#schema_name_fmt #(,#type_params::schema_name())* #(,#const_params)*)
+                cocogitto_schemars::_private::alloc::borrow::Cow::Owned(
+                    cocogitto_schemars::_private::alloc::format!(#schema_name_fmt #(,#type_params::schema_name())* #(,#const_params)*)
                 )
             },
             quote! {
-                schemars::_private::alloc::borrow::Cow::Owned(
-                    schemars::_private::alloc::format!(
+                cocogitto_schemars::_private::alloc::borrow::Cow::Owned(
+                    cocogitto_schemars::_private::alloc::format!(
                         ::core::concat!(
                             ::core::module_path!(),
                             "::",
@@ -184,16 +184,16 @@ fn derive_json_schema(mut input: syn::DeriveInput, repr: bool) -> syn::Result<To
 
             #[automatically_derived]
             #[allow(unused_braces)]
-            impl #impl_generics schemars::JsonSchema for #type_name #ty_generics #where_clause {
-                fn schema_name() -> schemars::_private::alloc::borrow::Cow<'static, str> {
+            impl #impl_generics cocogitto_schemars::JsonSchema for #type_name #ty_generics #where_clause {
+                fn schema_name() -> cocogitto_schemars::_private::alloc::borrow::Cow<'static, str> {
                     #schema_name
                 }
 
-                fn schema_id() -> schemars::_private::alloc::borrow::Cow<'static, str> {
+                fn schema_id() -> cocogitto_schemars::_private::alloc::borrow::Cow<'static, str> {
                     #schema_id
                 }
 
-                fn json_schema(#GENERATOR: &mut schemars::SchemaGenerator) -> schemars::Schema {
+                fn json_schema(#GENERATOR: &mut cocogitto_schemars::SchemaGenerator) -> cocogitto_schemars::Schema {
                     #schema_expr
                 }
             };
@@ -213,7 +213,7 @@ fn add_trait_bounds(cont: &mut Container) {
         // when used as fields - I think Serde does this?
         for param in &mut cont.generics.params {
             if let syn::GenericParam::Type(ref mut type_param) = *param {
-                type_param.bounds.push(parse_quote!(schemars::JsonSchema));
+                type_param.bounds.push(parse_quote!(cocogitto_schemars::JsonSchema));
             }
         }
     }

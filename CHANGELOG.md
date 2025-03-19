@@ -21,7 +21,7 @@
 ### Changed (_⚠️ breaking changes ⚠️_)
 
 - MSRV is now 1.70
-- [The `example` attribute](https://graham.cool/schemars/deriving/attributes/#example) value is now an arbitrary expression, rather than a string literal identifying a function to call. To avoid silent behaviour changes, the expression must not be a string literal where the value can be parsed as a function path - e.g. `#[schemars(example = "foo")]` is now a compile error, but `#[schemars(example = foo())]` is allowed (as is `#[schemars(example = &"foo")]` if you want the the literal string value `"foo"` to be the example).
+- [The `example` attribute](https://graham.cool/schemars/deriving/attributes/#example) value is now an arbitrary expression, rather than a string literal identifying a function to call. To avoid silent behaviour changes, the expression must not be a string literal where the value can be parsed as a function path - e.g. `#[cocogitto_schemars(example = "foo")]` is now a compile error, but `#[cocogitto_schemars(example = foo())]` is allowed (as is `#[cocogitto_schemars(example = &"foo")]` if you want the the literal string value `"foo"` to be the example).
 
 ### Fixed
 
@@ -69,7 +69,7 @@
 
 ### Changed
 
-- Values in `#[doc = ...]` and `#[schemars(description = ..., title = ...)]` attributes may now be any arbitrary expression rather than just string literals. (https://github.com/GREsau/schemars/issues/204 / https://github.com/GREsau/schemars/pull/327)
+- Values in `#[doc = ...]` and `#[cocogitto_schemars(description = ..., title = ...)]` attributes may now be any arbitrary expression rather than just string literals. (https://github.com/GREsau/schemars/issues/204 / https://github.com/GREsau/schemars/pull/327)
 - ⚠️ MSRV is now 1.65 ⚠️
 
 ## [1.0.0-alpha.10] - 2024-08-22
@@ -121,7 +121,7 @@
 
 ### Added
 
-- `#[schemars(transform = some::transform)]` for applying arbitrary modifications to generated schemas. `some::transform` must be an expression of type `schemars::transform::Transform` - note that this can be a function with the signature `fn(&mut Schema) -> ()`.
+- `#[cocogitto_schemars(transform = some::transform)]` for applying arbitrary modifications to generated schemas. `some::transform` must be an expression of type `schemars::transform::Transform` - note that this can be a function with the signature `fn(&mut Schema) -> ()`.
 - `SchemaSettings` and `SchemaGenerator` are both now `Send`
 
 ### Changed (_⚠️ breaking changes ⚠️_)
@@ -140,7 +140,7 @@
 
 ### Added
 
-- `#[schemars(extend("key" = value))]` attribute which can be used to add properties (or replace existing properties) in a generated schema (https://github.com/GREsau/schemars/issues/50 / https://github.com/GREsau/schemars/pull/297)
+- `#[cocogitto_schemars(extend("key" = value))]` attribute which can be used to add properties (or replace existing properties) in a generated schema (https://github.com/GREsau/schemars/issues/50 / https://github.com/GREsau/schemars/pull/297)
   - Can be set on a struct, enum, or enum variant
   - Value can be any expression that results in a value implementing `Serialize`
   - Value can also be a JSON literal following the rules of `serde_json::json!(value)` macro, i.e. it can interpolate other values that implement `Serialize`
@@ -247,7 +247,7 @@
 
 ### Added:
 
-- Add `#[schemars(inner(...)]` attribute to specify schema for array items (https://github.com/GREsau/schemars/pull/234)
+- Add `#[cocogitto_schemars(inner(...)]` attribute to specify schema for array items (https://github.com/GREsau/schemars/pull/234)
 
 ### Changed:
 
@@ -284,7 +284,7 @@
 
 ### Added:
 
-- Replace auto-inferred trait bounds with bounds specified in `#[schemars(bound = "...")]` attribute
+- Replace auto-inferred trait bounds with bounds specified in `#[cocogitto_schemars(bound = "...")]` attribute
 
 ### Changed:
 
@@ -342,14 +342,14 @@
 
 ### Added:
 
-- `#[schemars(schema_with = "...")]` attribute can now be set on enum variants.
+- `#[cocogitto_schemars(schema_with = "...")]` attribute can now be set on enum variants.
 - Deriving JsonSchema will now take into account `#[validate(...)]` attributes, compatible with the [validator](https://github.com/Keats/validator) crate (https://github.com/GREsau/schemars/pull/78)
 
 ## [0.8.3] - 2021-04-05
 
 ### Added:
 
-- Support for `#[schemars(crate = "...")]` attribute to allow deriving JsonSchema when the schemars crate is aliased to a different name (https://github.com/GREsau/schemars/pull/55 / https://github.com/GREsau/schemars/pull/80)
+- Support for `#[cocogitto_schemars(crate = "...")]` attribute to allow deriving JsonSchema when the schemars crate is aliased to a different name (https://github.com/GREsau/schemars/pull/55 / https://github.com/GREsau/schemars/pull/80)
 - Implement `JsonSchema` for `bytes::Bytes` and `bytes::BytesMut` (https://github.com/GREsau/schemars/pull/68)
 
 ### Fixed:
@@ -379,7 +379,7 @@
 
 ### Fixed
 
-- Fix use of `#[serde(transparent)]` in combination with `#[schemars(with = ...)]` (https://github.com/GREsau/schemars/pull/67)
+- Fix use of `#[serde(transparent)]` in combination with `#[cocogitto_schemars(with = ...)]` (https://github.com/GREsau/schemars/pull/67)
 - Fix clippy `field_reassign_with_default` warning in schemars_derive generated code in rust <1.51 (https://github.com/GREsau/schemars/pull/65)
 - Prevent stack overflow when using `inline_subschemas` with recursive types
 
@@ -407,7 +407,7 @@
 
 ### Fixed:
 
-- **BREAKING CHANGE** unknown items in `#[schemars(...)]` attributes now cause a compilation error (https://github.com/GREsau/schemars/issues/18)
+- **BREAKING CHANGE** unknown items in `#[cocogitto_schemars(...)]` attributes now cause a compilation error (https://github.com/GREsau/schemars/issues/18)
 
 ### Deprecated:
 
@@ -417,7 +417,7 @@
 
 ### Added:
 
-- `#[schemars(example = "...")]` attribute for setting examples on generated schemas (https://github.com/GREsau/schemars/issues/23)
+- `#[cocogitto_schemars(example = "...")]` attribute for setting examples on generated schemas (https://github.com/GREsau/schemars/issues/23)
 
 ## [0.7.5] - 2020-05-17
 
@@ -425,7 +425,7 @@
 
 - Setting `#[deprecated]` attribute will now cause generated schemas to have the `deprecated` property set to `true`
 - Respect `#[serde(transparent)]` attribute (https://github.com/GREsau/schemars/issues/17)
-- `#[schemars(title = "...", description = "...")]` can now be used to set schema title/description. If present, these values will be used instead of doc comments (https://github.com/GREsau/schemars/issues/13)
+- `#[cocogitto_schemars(title = "...", description = "...")]` can now be used to set schema title/description. If present, these values will be used instead of doc comments (https://github.com/GREsau/schemars/issues/13)
 
 ### Changed:
 
@@ -442,11 +442,11 @@
 
 ### Added:
 
-- `#[schemars(schema_with = "...")]` attribute can be set on variants and fields. This allows you to specify another function which returns the schema you want, which is particularly useful on fields of types that don't implement the JsonSchema trait (https://github.com/GREsau/schemars/issues/15)
+- `#[cocogitto_schemars(schema_with = "...")]` attribute can be set on variants and fields. This allows you to specify another function which returns the schema you want, which is particularly useful on fields of types that don't implement the JsonSchema trait (https://github.com/GREsau/schemars/issues/15)
 
 ### Fixed
 
-- `#[serde(with = "...")]`/`#[schemars(with = "...")]` attributes on enum variants are now respected
+- `#[serde(with = "...")]`/`#[cocogitto_schemars(with = "...")]` attributes on enum variants are now respected
 - Some compiler errors generated by schemars_derive should now have more accurate spans
 
 ## [0.7.2] - 2020-04-30
@@ -477,7 +477,7 @@
 
 - When deriving `JsonSchema` on structs, `Option<T>` struct fields are no longer included in the list of required properties in the schema (https://github.com/GREsau/schemars/issues/11)
 - Fix deriving `JsonSchema` when a non-std `String` type is in scope (https://github.com/GREsau/schemars/pull/19)
-- This will now compile: `#[schemars(with="()")]`
+- This will now compile: `#[cocogitto_schemars(with="()")]`
 
 ### Added:
 

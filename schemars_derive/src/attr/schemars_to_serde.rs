@@ -6,7 +6,7 @@ use syn::{Attribute, Data, Field, Meta, Variant};
 
 use super::get_meta_items;
 
-// List of keywords that can appear in #[serde(...)]/#[schemars(...)] attributes which we want
+// List of keywords that can appear in #[serde(...)]/#[cocogitto_schemars(...)] attributes which we want
 // serde_derive_internals to parse for us.
 pub(crate) static SERDE_KEYWORDS: &[&str] = &[
     "rename",
@@ -37,7 +37,7 @@ pub(crate) static SERDE_KEYWORDS: &[&str] = &[
     "with",
 ];
 
-// If a struct/variant/field has any #[schemars] attributes, then create copies of them
+// If a struct/variant/field has any #[cocogitto_schemars] attributes, then create copies of them
 // as #[serde] attributes so that serde_derive_internals will parse them for us.
 pub fn process_serde_attrs(input: &mut syn::DeriveInput) -> syn::Result<()> {
     let ctxt = Ctxt::new();
@@ -70,7 +70,7 @@ fn process_attrs(ctxt: &Ctxt, attrs: &mut Vec<Attribute>) {
         attrs.drain(..).partition(|at| at.path().is_ident("serde"));
     *attrs = other_attrs;
 
-    // Copy appropriate #[schemars(...)] attributes to #[serde(...)] attributes
+    // Copy appropriate #[cocogitto_schemars(...)] attributes to #[serde(...)] attributes
     let (mut serde_meta, mut schemars_meta_names): (Vec<_>, HashSet<_>) =
         get_meta_items(attrs, "schemars", ctxt)
             .into_iter()
@@ -89,7 +89,7 @@ fn process_attrs(ctxt: &Ctxt, attrs: &mut Vec<Attribute>) {
         schemars_meta_names.insert("skip_deserializing".to_string());
     }
 
-    // Re-add #[serde(...)] attributes that weren't overridden by #[schemars(...)] attributes
+    // Re-add #[serde(...)] attributes that weren't overridden by #[cocogitto_schemars(...)] attributes
     for meta in get_meta_items(&serde_attrs, "serde", ctxt) {
         if let Some(i) = get_meta_ident(&meta) {
             if !schemars_meta_names.contains(&i)
@@ -137,32 +137,32 @@ mod tests {
         let mut input: DeriveInput = parse_quote! {
             #[serde(rename(serialize = "ser_name"), rename_all = "camelCase")]
             #[serde(default, unknown_word)]
-            #[schemars(rename = "overriden", another_unknown_word)]
+            #[cocogitto_schemars(rename = "overriden", another_unknown_word)]
             #[misc]
             struct MyStruct {
                 /// blah blah blah
                 #[serde(skip_serializing_if = "some_fn", bound = "removed")]
                 field1: i32,
                 #[serde(serialize_with = "se", deserialize_with = "de")]
-                #[schemars(with = "with", bound = "bound")]
+                #[cocogitto_schemars(with = "with", bound = "bound")]
                 field2: i32,
-                #[schemars(skip)]
+                #[cocogitto_schemars(skip)]
                 #[serde(skip_serializing)]
                 field3: i32,
             }
         };
         let expected: DeriveInput = parse_quote! {
-            #[schemars(rename = "overriden", another_unknown_word)]
+            #[cocogitto_schemars(rename = "overriden", another_unknown_word)]
             #[misc]
             #[serde(rename = "overriden", rename_all = "camelCase", default)]
             struct MyStruct {
                 #[doc = r" blah blah blah"]
                 #[serde(skip_serializing_if = "some_fn")]
                 field1: i32,
-                #[schemars(with = "with", bound = "bound")]
+                #[cocogitto_schemars(with = "with", bound = "bound")]
                 #[serde(bound = "bound", serialize_with = "se")]
                 field2: i32,
-                #[schemars(skip)]
+                #[cocogitto_schemars(skip)]
                 #[serde(skip)]
                 field3: i32,
             }

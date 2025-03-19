@@ -11,7 +11,7 @@ struct Flat {
 }
 
 #[derive(JsonSchema, Deserialize, Serialize, Default)]
-#[schemars(rename = "Flat")]
+#[cocogitto_schemars(rename = "Flat")]
 struct Deep1 {
     f: f32,
     #[serde(flatten)]
@@ -60,7 +60,7 @@ struct FlattenValue {
 }
 
 #[derive(JsonSchema, Deserialize, Serialize, Default)]
-#[schemars(rename = "FlattenValue")]
+#[cocogitto_schemars(rename = "FlattenValue")]
 struct FlattenMap {
     flag: bool,
     #[serde(flatten)]

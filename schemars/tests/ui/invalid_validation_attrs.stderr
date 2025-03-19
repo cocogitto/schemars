@@ -7,31 +7,31 @@ error: expected validate regex attribute item to be of the form `regex(...)`
 error: expected schemars regex attribute item to be of the form `regex(...)`
  --> tests/ui/invalid_validation_attrs.rs:9:31
   |
-9 | pub struct Struct2(#[schemars(regex, foo, length(min = 1, equal = 2, bar))] String);
+9 | pub struct Struct2(#[cocogitto_schemars(regex, foo, length(min = 1, equal = 2, bar))] String);
   |                               ^^^^^
 
 error: schemars attribute cannot contain both `equal` and `min`
  --> tests/ui/invalid_validation_attrs.rs:9:59
   |
-9 | pub struct Struct2(#[schemars(regex, foo, length(min = 1, equal = 2, bar))] String);
+9 | pub struct Struct2(#[cocogitto_schemars(regex, foo, length(min = 1, equal = 2, bar))] String);
   |                                                           ^^^^^^^^^
 
 error: unknown item in schemars length attribute: `bar`
  --> tests/ui/invalid_validation_attrs.rs:9:70
   |
-9 | pub struct Struct2(#[schemars(regex, foo, length(min = 1, equal = 2, bar))] String);
+9 | pub struct Struct2(#[cocogitto_schemars(regex, foo, length(min = 1, equal = 2, bar))] String);
   |                                                                      ^^^
 
 error: unknown schemars attribute `foo`
  --> tests/ui/invalid_validation_attrs.rs:9:38
   |
-9 | pub struct Struct2(#[schemars(regex, foo, length(min = 1, equal = 2, bar))] String);
+9 | pub struct Struct2(#[cocogitto_schemars(regex, foo, length(min = 1, equal = 2, bar))] String);
   |                                      ^^^
 
 error: unknown schemars attribute `email`
  --> tests/ui/invalid_validation_attrs.rs:8:12
   |
-8 | #[schemars(email)]
+8 | #[cocogitto_schemars(email)]
   |            ^^^^^
 
 error: expected validate regex attribute item to be of the form `regex(...)`

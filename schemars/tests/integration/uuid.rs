@@ -1,5 +1,5 @@
 use crate::prelude::*;
-use schemars::generate::SchemaSettings;
+use cocogitto_schemars::generate::SchemaSettings;
 use uuid1::Uuid;
 
 #[test]

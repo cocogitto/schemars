@@ -18,7 +18,7 @@ Generate JSON Schema documents from Rust code
 If you don't really care about the specifics, the easiest way to generate a JSON schema for your types is to `#[derive(JsonSchema)]` and use the `schema_for!` macro. All fields of the type must also implement `JsonSchema` - Schemars implements this for many standard library types.
 
 ```rust
-use schemars::{schema_for, JsonSchema};
+use cocogitto_schemars::{schema_for, JsonSchema};
 
 #[derive(JsonSchema)]
 pub struct MyStruct {
@@ -111,7 +111,7 @@ println!("{}", serde_json::to_string_pretty(&schema).unwrap());
 One of the main aims of this library is compatibility with [Serde](https://github.com/serde-rs/serde). Any generated schema _should_ match how [serde_json](https://github.com/serde-rs/json) would serialize/deserialize to/from JSON. To support this, Schemars will check for any `#[serde(...)]` attributes on types that derive `JsonSchema`, and adjust the generated schema accordingly.
 
 ```rust
-use schemars::{schema_for, JsonSchema};
+use cocogitto_schemars::{schema_for, JsonSchema};
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, JsonSchema)]
@@ -192,14 +192,14 @@ println!("{}", serde_json::to_string_pretty(&schema).unwrap());
 
 </details>
 
-`#[serde(...)]` attributes can be overriden using `#[schemars(...)]` attributes, which behave identically (e.g. `#[schemars(rename_all = "camelCase")]`). You may find this useful if you want to change the generated schema without affecting Serde's behaviour, or if you're just not using Serde.
+`#[serde(...)]` attributes can be overriden using `#[cocogitto_schemars(...)]` attributes, which behave identically (e.g. `#[cocogitto_schemars(rename_all = "camelCase")]`). You may find this useful if you want to change the generated schema without affecting Serde's behaviour, or if you're just not using Serde.
 
 ### Schema from Example Value
 
 If you want a schema for a type that can't/doesn't implement `JsonSchema`, but does implement `serde::Serialize`, then you can generate a JSON schema from a value of that type. However, this schema will generally be less precise than if the type implemented `JsonSchema` - particularly when it involves enums, since schemars will not make any assumptions about the structure of an enum based on a single variant.
 
 ```rust
-use schemars::schema_for_value;
+use cocogitto_schemars::schema_for_value;
 use serde::Serialize;
 
 #[derive(Serialize)]

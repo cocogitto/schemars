@@ -1,5 +1,5 @@
 [package]
-name = "schemars"
+name = "cocogitto-schemars"
 description = "Generate JSON Schemas from Rust code"
 homepage = "https://graham.cool/schemars/"
 repository = "https://github.com/GREsau/schemars"
@@ -13,7 +13,7 @@ categories = ["encoding", "no-std"]
 rust-version = "1.70"
 
 [dependencies]
-schemars_derive = { version = "=1.0.0-alpha.17", optional = true, path = "../schemars_derive" }
+cocogitto-schemars_derive = { version = "=1.0.0-alpha.17", optional = true, path = "../schemars_derive" }
 serde = { version = "1.0", default-features = false, features = ["alloc"]}
 serde_json = { version =  "1.0.127", default-features = false, features = ["alloc"] }
 dyn-clone = "1.0"
@@ -65,7 +65,7 @@ default = ["derive", "std"]
 std = []
 
 # Provide `derive(JsonSchema)` macro.
-derive = ["schemars_derive"]
+derive = ["cocogitto-schemars_derive"]
 
 # Preserves order of properties inserted into a `Schema`.
 # When deriving `JsonSchema`, this ensures that the `properties` entires match

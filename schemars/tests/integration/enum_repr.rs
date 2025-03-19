@@ -1,5 +1,5 @@
 use crate::prelude::*;
-use schemars::JsonSchema_repr;
+use cocogitto_schemars::JsonSchema_repr;
 use serde_repr::{Deserialize_repr, Serialize_repr};
 
 #[derive(JsonSchema_repr, Deserialize_repr, Serialize_repr)]

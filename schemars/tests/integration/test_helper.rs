@@ -1,5 +1,5 @@
 use jsonschema::Validator;
-use schemars::{
+use cocogitto_schemars::{
     generate::{Contract, SchemaSettings},
     JsonSchema, Schema,
 };

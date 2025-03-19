@@ -1,9 +1,9 @@
 use crate::prelude::*;
-use schemars::{generate::SchemaSettings, Schema};
+use cocogitto_schemars::{generate::SchemaSettings, Schema};
 
 #[derive(JsonSchema, Deserialize, Serialize, Default)]
 pub struct OuterStruct {
-    #[schemars(extend("examples" = [8, null]))]
+    #[cocogitto_schemars(extend("examples" = [8, null]))]
     maybe_int: Option<i32>,
     values: serde_json::Map<String, Value>,
     value: Value,

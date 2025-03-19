@@ -1,5 +1,5 @@
 use crate::prelude::*;
-use schemars::generate::SchemaSettings;
+use cocogitto_schemars::generate::SchemaSettings;
 use std::collections::BTreeMap;
 
 #[derive(JsonSchema, Deserialize, Serialize, Default, Clone)]

@@ -82,13 +82,13 @@ impl ValidationAttrs {
 
         if let Some(regex) = self.regex.as_ref().or(self.pattern.as_ref()) {
             mutators.push(quote! {
-                schemars::_private::insert_validation_property(#mut_ref_schema, "string", "pattern", (#regex).to_string());
+                cocogitto_schemars::_private::insert_validation_property(#mut_ref_schema, "string", "pattern", (#regex).to_string());
             });
         }
 
         if let Some(contains) = &self.contains {
             mutators.push(quote! {
-                schemars::_private::must_contain(#mut_ref_schema, &#contains.to_string());
+                cocogitto_schemars::_private::must_contain(#mut_ref_schema, &#contains.to_string());
             });
         }
 
@@ -105,7 +105,7 @@ impl ValidationAttrs {
 
             if !inner_mutators.is_empty() {
                 mutators.push(quote! {
-                    schemars::_private::apply_inner_validation(#mut_ref_schema, |inner_schema| { #(#inner_mutators)* });
+                    cocogitto_schemars::_private::apply_inner_validation(#mut_ref_schema, |inner_schema| { #(#inner_mutators)* });
                 })
             }
         }
@@ -121,14 +121,14 @@ impl ValidationAttrs {
         if let Some(min) = value.min.as_ref().or(value.equal.as_ref()) {
             let key = format!("min{key_suffix}");
             mutators.push(quote!{
-                schemars::_private::insert_validation_property(#mut_ref_schema, #required_format, #key, #min);
+                cocogitto_schemars::_private::insert_validation_property(#mut_ref_schema, #required_format, #key, #min);
             });
         }
 
         if let Some(max) = value.max.as_ref().or(value.equal.as_ref()) {
             let key = format!("max{key_suffix}");
             mutators.push(quote!{
-                schemars::_private::insert_validation_property(#mut_ref_schema, #required_format, #key, #max);
+                cocogitto_schemars::_private::insert_validation_property(#mut_ref_schema, #required_format, #key, #max);
             });
         }
     }

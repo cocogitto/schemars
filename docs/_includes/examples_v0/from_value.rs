@@ -1,4 +1,4 @@
-use schemars::schema_for_value;
+use cocogitto_schemars::schema_for_value;
 use serde::Serialize;
 
 #[derive(Serialize)]

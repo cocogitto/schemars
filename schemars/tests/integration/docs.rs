@@ -66,16 +66,16 @@ fn doc_comments_enum() {
 /// This description should be overridden
 #[allow(dead_code)]
 #[derive(JsonSchema)]
-#[schemars(description = "New description")]
+#[cocogitto_schemars(description = "New description")]
 struct OverrideDocs {
     /// # Overridden
-    #[schemars(title = "My integer", description = "This is an i32")]
+    #[cocogitto_schemars(title = "My integer", description = "This is an i32")]
     my_int: i32,
     /// # Overridden
     /// Also overridden
-    #[schemars(title = "", description = "")]
+    #[cocogitto_schemars(title = "", description = "")]
     my_undocumented_bool: bool,
-    #[schemars(title = concat!("Documented ", "bool"), description = "Capitalized".to_uppercase())]
+    #[cocogitto_schemars(title = concat!("Documented ", "bool"), description = "Capitalized".to_uppercase())]
     my_documented_bool: bool,
 }
 

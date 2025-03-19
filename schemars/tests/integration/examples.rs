@@ -1,12 +1,12 @@
 use crate::prelude::*;
 
 #[derive(Default, JsonSchema, Serialize)]
-#[schemars(example = Struct::default(), example = ())]
+#[cocogitto_schemars(example = Struct::default(), example = ())]
 struct Struct {
-    #[schemars(example = 4 + 4, example = ())]
+    #[cocogitto_schemars(example = 4 + 4, example = ())]
     foo: i32,
     bar: bool,
-    #[schemars(example = (), example = &"foo")]
+    #[cocogitto_schemars(example = (), example = &"foo")]
     baz: Option<&'static str>,
 }
 

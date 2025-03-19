@@ -1,5 +1,5 @@
 use crate::prelude::*;
-use schemars::{
+use cocogitto_schemars::{
     transform::{RecursiveTransform, Transform},
     Schema,
 };
@@ -20,10 +20,10 @@ fn insert_property_count(schema: &mut Schema) {
 }
 
 #[derive(JsonSchema, Deserialize, Serialize, Default)]
-#[schemars(transform = RecursiveTransform(insert_upper_type), transform = insert_property_count)]
+#[cocogitto_schemars(transform = RecursiveTransform(insert_upper_type), transform = insert_property_count)]
 struct Struct {
     value: Value,
-    #[schemars(transform = insert_property_count)]
+    #[cocogitto_schemars(transform = insert_property_count)]
     int: i32,
 }
 
@@ -36,12 +36,12 @@ fn transform_struct() {
 }
 
 #[derive(JsonSchema, Deserialize, Serialize, Default)]
-#[schemars(transform = RecursiveTransform(insert_upper_type), transform = insert_property_count)]
+#[cocogitto_schemars(transform = RecursiveTransform(insert_upper_type), transform = insert_property_count)]
 enum External {
     #[default]
-    #[schemars(transform = insert_property_count)]
+    #[cocogitto_schemars(transform = insert_property_count)]
     Unit,
-    #[schemars(transform = insert_property_count)]
+    #[cocogitto_schemars(transform = insert_property_count)]
     NewType(Value),
 }
 
@@ -53,7 +53,7 @@ fn transform_enum() {
         .custom(assert_upper_type_valid);
 }
 
-fn assert_upper_type_valid(schema: &Schema, _: schemars::generate::Contract) {
+fn assert_upper_type_valid(schema: &Schema, _: cocogitto_schemars::generate::Contract) {
     let mut schema = schema.clone();
 
     RecursiveTransform(|s: &mut Schema| {

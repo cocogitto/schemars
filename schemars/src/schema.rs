@@ -14,7 +14,7 @@ use serde_json::{Map, Value};
 ///
 /// A custom JSON schema can be created using the [`json_schema!`](crate::json_schema) macro:
 /// ```
-/// use schemars::{Schema, json_schema};
+/// use cocogitto_schemars::{Schema, json_schema};
 ///
 /// let my_schema: Schema = json_schema!({
 ///     "type": ["object", "null"]
@@ -27,7 +27,7 @@ use serde_json::{Map, Value};
 /// be converted in this way.
 ///
 /// ```
-/// use schemars::{Schema, json_schema};
+/// use cocogitto_schemars::{Schema, json_schema};
 /// use serde_json::json;
 ///
 /// let json_object = json!({"type": ["object", "null"]});
@@ -52,7 +52,7 @@ use serde_json::{Map, Value};
 /// [`Map<String, Value>`] or [`bool`].
 ///
 /// ```
-/// use schemars::{Schema, json_schema};
+/// use cocogitto_schemars::{Schema, json_schema};
 /// use serde_json::{Map, json};
 ///
 /// let mut map = Map::new();
@@ -164,7 +164,7 @@ impl Schema {
     ///
     /// # Example
     /// ```
-    /// use schemars::json_schema;
+    /// use cocogitto_schemars::json_schema;
     /// use serde_json::json;
     ///
     /// let mut schema = json_schema!(true);
@@ -184,7 +184,7 @@ impl Schema {
     ///
     /// # Example
     /// ```
-    /// use schemars::json_schema;
+    /// use cocogitto_schemars::json_schema;
     /// use serde_json::json;
     ///
     /// let obj_schema = json_schema!({"type": "array"});
@@ -209,7 +209,7 @@ impl Schema {
     ///
     /// # Example
     /// ```
-    /// use schemars::json_schema;
+    /// use cocogitto_schemars::json_schema;
     /// use serde_json::json;
     ///
     /// let mut schema = json_schema!({"type": "array"});
@@ -321,7 +321,7 @@ impl crate::JsonSchema for Schema {
     }
 
     fn schema_id() -> alloc::borrow::Cow<'static, str> {
-        "schemars::Schema".into()
+        "cocogitto_schemars::Schema".into()
     }
 
     fn json_schema(_: &mut crate::SchemaGenerator) -> Schema {

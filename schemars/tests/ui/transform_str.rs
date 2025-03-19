@@ -1,7 +1,7 @@
-use schemars::JsonSchema;
+use cocogitto_schemars::JsonSchema;
 
 #[derive(JsonSchema)]
-#[schemars(transform = "x")]
+#[cocogitto_schemars(transform = "x")]
 pub struct Struct;
 
 fn main() {}
